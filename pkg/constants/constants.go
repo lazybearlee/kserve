@@ -131,6 +131,7 @@ var (
 	LocalModelLabel                                  = InferenceServiceInternalAnnotationsPrefix + "/localmodel"
 	LocalModelSourceUriAnnotationKey                 = InferenceServiceInternalAnnotationsPrefix + "/localmodel-sourceuri"
 	LocalModelPVCNameAnnotationKey                   = InferenceServiceInternalAnnotationsPrefix + "/localmodel-pvc-name"
+	PrometheusInternalAnnotationKey                  = InferenceServiceInternalAnnotationsPrefix + "/prometheus"
 )
 
 // kserve networking constants
@@ -248,6 +249,9 @@ const (
 	KServeContainerPrometheusMetricsPortEnvVarKey     = "KSERVE_CONTAINER_PROMETHEUS_METRICS_PORT"
 	KServeContainerPrometheusMetricsPathEnvVarKey     = "KSERVE_CONTAINER_PROMETHEUS_METRICS_PATH"
 	QueueProxyAggregatePrometheusMetricsPortEnvVarKey = "AGGREGATE_PROMETHEUS_METRICS_PORT"
+	AgentPrometheusEnabledEnvVarKey                   = "AGENT_PROMETHEUS_ENABLED"
+	AgentPrometheusPortEnvVarKey                      = "AGENT_PROMETHEUS_PORT"
+	AgentPrometheusPathEnvVarKey                      = "AGENT_PROMETHEUS_PATH"
 )
 
 type InferenceServiceComponent string

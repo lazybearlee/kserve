@@ -103,11 +103,13 @@ func (p *Predictor) Reconcile(ctx context.Context, isvc *v1beta1.InferenceServic
 	addAgentAnnotations(isvc, annotations)
 
 	// Reconcile modelConfig
+	// 其实还未实现
 	configMapReconciler := modelconfig.NewModelConfigReconciler(p.client, p.clientset, p.scheme)
 	if err := configMapReconciler.Reconcile(ctx, isvc); err != nil {
 		return ctrl.Result{}, err
 	}
 
+	// 拿到不为空的ComponentImplementation，像如果是sklearn的话，就拿到sklearn的ComponentImplementation
 	predictor := isvc.Spec.Predictor.GetImplementation()
 
 	// Knative does not support INIT containers or mounting, so we add annotations that trigger the
@@ -167,6 +169,7 @@ func (p *Predictor) Reconcile(ctx context.Context, isvc *v1beta1.InferenceServic
 
 			sRuntime = *r
 		} else {
+			// 获取默认的runtime
 			runtimes, err := isvc.Spec.Predictor.Model.GetSupportingRuntimes(ctx, p.client, isvc.Namespace, false, multiNodeEnabled)
 			if err != nil {
 				return ctrl.Result{}, err

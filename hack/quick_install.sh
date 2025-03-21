@@ -91,11 +91,11 @@ echo "Installing Gateway API CRDs ..."
 kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/${GATEWAY_API_VERSION}/standard-install.yaml
 
 helm repo add istio https://istio-release.storage.googleapis.com/charts --force-update
-helm install istio-base istio/base -n istio-system --wait --set defaultRevision=default --create-namespace --version ${ISTIO_VERSION}
-helm install istiod istio/istiod -n istio-system --wait --version ${ISTIO_VERSION} \
+helm install istio-base istio/base -n istio-system --wait --set defaultRevision=default --create-namespace --version 1.23.2
+helm install istiod istio/istiod -n istio-system --wait --version 1.23.2 \
    --set proxy.autoInject=disabled \
    --set-string pilot.podAnnotations."cluster-autoscaler\.kubernetes\.io/safe-to-evict"=true
-helm install istio-ingressgateway istio/gateway -n istio-system --version ${ISTIO_VERSION} \
+helm install istio-ingressgateway istio/gateway -n istio-system --version 1.23.2 \
    --set-string podAnnotations."cluster-autoscaler\.kubernetes\.io/safe-to-evict"=true
 
 # Wait for the istio ingressgateway pod to be created
@@ -110,28 +110,28 @@ helm install \
    cert-manager jetstack/cert-manager \
    --namespace cert-manager \
    --create-namespace \
-   --version ${CERT_MANAGER_VERSION} \
+   --version v1.16.1 \
    --set crds.enabled=true
 echo "😀 Successfully installed Cert Manager"
 
 # Install Knative
 if [ $deploymentMode = "Serverless" ]; then
-   helm install knative-operator --namespace knative-serving --create-namespace --wait \
-      https://github.com/knative/operator/releases/download/knative-${KNATIVE_OPERATOR_VERSION}/knative-operator-${KNATIVE_OPERATOR_VERSION}.tgz
-   kubectl apply -f - <<EOF
-   apiVersion: operator.knative.dev/v1beta1
-   kind: KnativeServing
-   metadata:
-     name: knative-serving
-     namespace: knative-serving
-   spec:
-     version: "${KNATIVE_SERVING_VERSION}"
-     config:
-       domain:
-         # Patch the external domain as the default domain svc.cluster.local is not exposed on ingress (from knative 1.8)
-         example.com: ""
+helm install knative-operator --namespace knative-serving --create-namespace --wait \
+   https://github.com/knative/operator/releases/download/knative-v1.15.7/knative-operator-v1.15.7.tgz
+kubectl apply -f - <<EOF
+apiVersion: operator.knative.dev/v1beta1
+kind: KnativeServing
+metadata:
+   name: knative-serving
+   namespace: knative-serving
+spec:
+   version: "1.15.2"
+   config:
+      domain:
+      # Patch the external domain as the default domain svc.cluster.local is not exposed on ingress (from knative 1.8)
+      example.com: ""
 EOF
-   echo "😀 Successfully installed Knative"
+echo "😀 Successfully installed Knative"
 fi
 
 if [ $installKserve = false ]; then

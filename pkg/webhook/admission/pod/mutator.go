@@ -115,12 +115,30 @@ func (mutator *Mutator) mutate(pod *corev1.Pod, configMap *corev1.ConfigMap) err
 
 	metricsAggregator := newMetricsAggregator(configMap)
 
+	prometheusConfig, err := getPrometheusConfigs(configMap)
+	if err != nil {
+		return err
+	}
+	prometheusConfigContent, err := getPrometheusConfigContent(configMap)
+	if err != nil {
+		return err
+	}
+	prometheusInjector := &PrometheusInjector{
+		Config:        prometheusConfig,
+		ConfigContent: prometheusConfigContent,
+	}
+
+	log.Info("Mutating pod", "name", pod.Name)
+	log.Info("Prometheus config", "config", prometheusConfig)
+	log.Info("Prometheus config content", "configContent", prometheusConfigContent)
+
 	mutators := []func(pod *corev1.Pod) error{
 		InjectGKEAcceleratorSelector,
 		storageInitializer.InjectStorageInitializer,
 		storageInitializer.SetIstioCniSecurityContext,
 		agentInjector.InjectAgent,
 		metricsAggregator.InjectMetricsAggregator,
+		prometheusInjector.InjectPrometheus,
 	}
 
 	if storageInitializer.config.EnableOciImageSource {
@@ -131,6 +149,11 @@ func (mutator *Mutator) mutate(pod *corev1.Pod, configMap *corev1.ConfigMap) err
 		if err := mutator(pod); err != nil {
 			return err
 		}
+	}
+
+	// 打印当前的pod容器信息
+	for _, container := range pod.Spec.Containers {
+		log.Info("Container", "Container Spec", container)
 	}
 
 	return nil

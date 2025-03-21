@@ -145,7 +145,6 @@ func (mi *StorageInitializerInjector) InjectModelcar(pod *corev1.Pod) error {
 
 	// Add an emptyDir Volume to Pod
 	addEmptyDirVolumeIfNotPresent(pod, StorageInitializerVolumeName)
-
 	// Extract image reference for modelcar from URI
 	image := strings.TrimPrefix(srcURI, OciURIPrefix)
 

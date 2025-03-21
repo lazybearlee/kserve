@@ -1,0 +1,26 @@
+{"level":"info","ts":"2025-03-13T09:02:06Z","logger":"setup","msg":"Setting up client for manager"}
+{"level":"info","ts":"2025-03-13T09:02:06Z","logger":"setup","msg":"Setting up manager"}
+{"level":"info","ts":"2025-03-13T09:02:06Z","logger":"setup","msg":"Registering Components."}
+{"level":"info","ts":"2025-03-13T09:02:06Z","logger":"setup","msg":"Setting up KServe v1alpha1 scheme"}
+{"level":"info","ts":"2025-03-13T09:02:06Z","logger":"setup","msg":"Setting up KServe v1beta1 scheme"}
+{"level":"info","ts":"2025-03-13T09:02:06Z","logger":"setup","msg":"Setting up core scheme"}
+{"level":"info","ts":"2025-03-13T09:02:06Z","logger":"setup","msg":"Setting up v1alpha1 LocalModel controller"}
+{"level":"info","ts":"2025-03-13T09:02:06Z","logger":"setup","msg":"Starting the Cmd."}
+{"level":"info","ts":"2025-03-13T09:02:06Z","logger":"controller-runtime.metrics","msg":"Starting metrics server"}
+{"level":"info","ts":"2025-03-13T09:02:06Z","logger":"controller-runtime.metrics","msg":"Serving metrics server","bindAddress":":8080","secure":false}
+{"level":"info","ts":"2025-03-13T09:02:06Z","msg":"starting server","name":"health probe","addr":"[::]:8081"}
+{"level":"info","ts":"2025-03-13T09:02:06Z","msg":"Starting EventSource","controller":"localmodelcache","controllerGroup":"serving.kserve.io","controllerKind":"LocalModelCache","source":"kind source: *v1.PersistentVolumeClaim"}
+{"level":"info","ts":"2025-03-13T09:02:06Z","msg":"Starting EventSource","controller":"localmodelcache","controllerGroup":"serving.kserve.io","controllerKind":"LocalModelCache","source":"kind source: *v1alpha1.LocalModelCache"}
+{"level":"info","ts":"2025-03-13T09:02:06Z","msg":"Starting EventSource","controller":"localmodelcache","controllerGroup":"serving.kserve.io","controllerKind":"LocalModelCache","source":"kind source: *v1alpha1.LocalModelNode"}
+{"level":"info","ts":"2025-03-13T09:02:06Z","msg":"Starting EventSource","controller":"localmodelcache","controllerGroup":"serving.kserve.io","controllerKind":"LocalModelCache","source":"kind source: *v1.Node"}
+{"level":"info","ts":"2025-03-13T09:02:06Z","msg":"Starting EventSource","controller":"localmodelcache","controllerGroup":"serving.kserve.io","controllerKind":"LocalModelCache","source":"kind source: *v1beta1.InferenceService"}
+{"level":"info","ts":"2025-03-13T09:02:06Z","msg":"Starting EventSource","controller":"localmodelcache","controllerGroup":"serving.kserve.io","controllerKind":"LocalModelCache","source":"kind source: *v1.PersistentVolume"}
+{"level":"info","ts":"2025-03-13T09:02:07Z","msg":"Starting Controller","controller":"localmodelcache","controllerGroup":"serving.kserve.io","controllerKind":"LocalModelCache"}
+{"level":"info","ts":"2025-03-13T09:02:07Z","msg":"Starting workers","controller":"localmodelcache","controllerGroup":"serving.kserve.io","controllerKind":"LocalModelCache","worker count":1}
+{"level":"info","ts":"2025-03-13T09:02:07Z","logger":"v1alpha1Controllers.LocalModel","msg":"Reconciling localmodel","name":"opt-125m"}
+{"level":"info","ts":"2025-03-13T09:02:07Z","logger":"v1alpha1Controllers.LocalModel","msg":"Create PVC","name":"opt-125m-opt-125m-nodegroup","namespace":"kserve-localmodel-jobs"}
+{"level":"info","ts":"2025-03-13T09:02:07Z","logger":"v1alpha1Controllers.LocalModel","msg":"Reconciling localmodel","name":"opt-125m"}
+{"level":"info","ts":"2025-03-13T09:02:07Z","logger":"v1alpha1Controllers.LocalModel","msg":"Reconciling localmodel","name":"opt-125m"}
+{"level":"info","ts":"2025-03-13T09:02:07Z","logger":"v1alpha1Controllers.LocalModel","msg":"Reconciling localmodel","name":"opt-125m"}
+{"level":"info","ts":"2025-03-13T09:02:10Z","logger":"v1alpha1Controllers.LocalModel","msg":"Reconciling localmodel","name":"opt-125m"}
+{"level":"info","ts":"2025-03-13T09:02:10Z","logger":"v1alpha1Controllers.LocalModel","msg":"Reconciling localmodel","name":"opt-125m"}

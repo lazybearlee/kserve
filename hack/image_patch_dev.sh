@@ -108,4 +108,12 @@ data:
         "enableMetricAggregation": "false",
         "enablePrometheusScraping" : "false"
     }
+  prometheus: |-
+    {
+      "image": "m.daocloud.io/docker.io/prom/prometheus:v2.54.1",
+      "cpuRequest": "100m",
+      "cpuLimit": "200m",
+      "memoryRequest": "256Mi",
+      "memoryLimit": "512Mi"
+    }
 EOF

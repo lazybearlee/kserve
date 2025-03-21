@@ -1,0 +1,9 @@
+apiVersion: operator.knative.dev/v1beta1
+kind: KnativeServing
+metadata:
+   name: knative-serving
+   namespace: knative-serving
+spec:
+   version: "1.15.2"
+
+# istio-ingressgateway   LoadBalancer   10.96.3.163   <pending>     15021:31273/TCP,80:32639/TCP,443:30264/TCP   41m

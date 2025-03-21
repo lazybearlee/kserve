@@ -6,6 +6,7 @@ WORKDIR /go/src/github.com/kserve/kserve/qpext
 COPY qpext/go.mod  go.mod
 COPY qpext/go.sum  go.sum
 
+ENV GOPROXY=https://goproxy.cn,direct
 RUN go mod download
 
 COPY qpext/cmd/qpext cmd/qpext

@@ -200,6 +200,7 @@ func main() {
 			errCh <- fmt.Errorf("failed to listen to unix socket: %w", err)
 			return
 		}
+
 		// Create an http.Server instance with timeouts
 		// https://medium.com/a-journey-with-go/go-understand-and-mitigate-slowloris-attack-711c1b1403f6
 		ServerInstance := &http.Server{

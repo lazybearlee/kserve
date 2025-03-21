@@ -1,10 +1,11 @@
 apiVersion: "serving.kserve.io/v1beta1"
 kind: "InferenceService"
 metadata:
-  name: "sklearn-iris"
+  name: "sklearn-iris-pm-agent"
   annotations:
     serving.kserve.io/enable-metric-aggregation: "true"
     serving.kserve.io/enable-prometheus-scraping: "true"
+    serving.kserve.io/prometheus: "true"
 spec:
   predictor:
     batcher:

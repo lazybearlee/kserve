@@ -18,7 +18,7 @@ spec:
         command:
         - sh 
         - -c
-        image: peterevans/vegeta:latest
+        image: m.daocloud.io/docker.io/peterevans/vegeta:latest
         imagePullPolicy: Always
         name: vegeta
         volumeMounts:

@@ -701,3 +701,23 @@ data:
           "memoryRequest": "2Gi"
         }
     }
+
+  prometheus: |-
+    {
+      "image": "m.daocloud.io/docker.io/prom/prometheus:v2.54.1",
+      "cpuRequest": "100m",
+      "cpuLimit": "200m",
+      "memoryRequest": "256Mi",
+      "memoryLimit": "512Mi"
+    }
+
+  prometheus-config: |-
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 15s
+    scrape_configs:
+      - job_name: 'pod-aggregate'
+        metrics_path: '/metrics'
+        scrape_interval: 1s
+        static_configs:
+          - targets: ['localhost:9090']

@@ -123,7 +123,7 @@ Changes can be made in the qpext and tested via unit tests, e2e tests, and inter
 
 The controller reads the `serving.kserve.io/enable-metric-aggregation` and `serving.kserve.io/enable-prometheus-scraping`
 annotations and then adds prometheus annotations to the pod and/or environment variables to the queue-proxy container if specified. 
-This code is found in `kserve/pkg/webhook/admission/pod/metrics_aggregate_injector.go`. 
+This code is found in `kserve/pkg/webhook/pod/metrics_aggregate_injector.go`. 
 
 The specific runtime default configurations are annotations in the YAML files in `kserve/config/runtimes`. 
 
