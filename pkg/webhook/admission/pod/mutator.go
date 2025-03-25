@@ -51,6 +51,8 @@ func (mutator *Mutator) Handle(ctx context.Context, req admission.Request) admis
 	}
 
 	if !needMutate(pod) {
+		// 打印pod的name和labels
+		log.Info("Skip mutating pod", "name", pod.Name, "labels", pod.Labels)
 		return admission.ValidationResponse(true, "")
 	}
 
@@ -62,6 +64,9 @@ func (mutator *Mutator) Handle(ctx context.Context, req admission.Request) admis
 
 	// For some reason pod namespace is always empty when coming to pod mutator, need to set from admission request
 	pod.Namespace = req.AdmissionRequest.Namespace
+
+	// 打印configMap
+	log.Info("ConfigMap", "configMap", configMap)
 
 	if err := mutator.mutate(pod, configMap); err != nil {
 		log.Error(err, "Failed to mutate pod", "name", pod.Labels[constants.InferenceServicePodLabelKey])
@@ -79,6 +84,15 @@ func (mutator *Mutator) Handle(ctx context.Context, req admission.Request) admis
 
 func (mutator *Mutator) mutate(pod *corev1.Pod, configMap *corev1.ConfigMap) error {
 	credentialBuilder := credentials.NewCredentialBuilder(mutator.Client, mutator.Clientset, configMap)
+
+	// 打印pod的所有容器信息与annotations
+	for _, container := range pod.Spec.Containers {
+		log.Info("Container", "Container Spec", container)
+	}
+	// 打印pod的annotations
+	for key, value := range pod.Annotations {
+		log.Info("Annotations", "key", key, "value", value)
+	}
 
 	storageInitializerConfig, err := getStorageInitializerConfigs(configMap)
 	if err != nil {

@@ -105,6 +105,8 @@ type config struct {
 	ServingRequestLogTemplate    string `split_words:"true"` // optional
 	ServingEnableRequestLog      bool   `split_words:"true"` // optional
 	ServingEnableProbeRequestLog bool   `split_words:"true"` // optional
+	// Dynamic batching configuration
+	PrometheusPort int `split_words:"true"` // optional
 }
 
 type loggerArgs struct {

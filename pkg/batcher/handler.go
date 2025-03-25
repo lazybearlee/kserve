@@ -24,6 +24,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"regexp"
+	"sync"
 	"time"
 
 	"github.com/gofrs/uuid/v5"
@@ -156,7 +157,7 @@ func (handler *BatchHandler) batchPredict() {
 
 func (handler *BatchHandler) batch() {
 	handler.log.Infof("Starting batch loop maxLatency:%d, maxBatchSize:%d",
-		handler.MaxLatency, handler.MaxBatchSize)
+		handler.MaxLatency, handler.BatchSize)
 	for {
 		select {
 		case req := <-handler.channelIn:
@@ -178,7 +179,7 @@ func (handler *BatchHandler) batch() {
 		case <-time.After(SleepTime):
 		}
 		handler.batcherInfo.Now = GetNowTime()
-		if handler.batcherInfo.CurrentInputLen >= handler.MaxBatchSize ||
+		if handler.batcherInfo.CurrentInputLen >= handler.BatchSize ||
 			(handler.batcherInfo.Now.Sub(handler.batcherInfo.Start).Milliseconds() >= int64(handler.MaxLatency) &&
 				handler.batcherInfo.CurrentInputLen > 0) {
 			handler.log.Infof("batch predict with size %d %s", len(handler.batcherInfo.Instances), handler.batcherInfo.Path)
@@ -188,13 +189,15 @@ func (handler *BatchHandler) batch() {
 }
 
 func (handler *BatchHandler) Consume() {
-	if handler.MaxBatchSize <= 0 {
-		handler.MaxBatchSize = MaxBatchSize
+	if handler.BatchSize <= 0 {
+		handler.BatchSize = MaxBatchSize
 	}
 	if handler.MaxLatency <= 0 {
 		handler.MaxLatency = MaxLatency
 	}
 	handler.batcherInfo.InitializeInfo()
+	// 启动动态调节循环（该循环中会周期性调整 handler.BatchSize）
+	go handler.AdjustDynamicBatchSizeLoop()
 	handler.batch()
 }
 
@@ -203,8 +206,10 @@ type BatchHandler struct {
 	log          *zap.SugaredLogger
 	channelIn    chan Input
 	MaxBatchSize int
+	BatchSize    int
 	MaxLatency   int
 	batcherInfo  BatcherInfo
+	InfoRwMutex  sync.RWMutex
 }
 
 func New(maxBatchSize int, maxLatency int, handler http.Handler, logger *zap.SugaredLogger) *BatchHandler {
@@ -212,6 +217,7 @@ func New(maxBatchSize int, maxLatency int, handler http.Handler, logger *zap.Sug
 		next:         handler,
 		log:          logger,
 		channelIn:    make(chan Input),
+		BatchSize:    1, // default to 1
 		MaxBatchSize: maxBatchSize,
 		MaxLatency:   maxLatency,
 	}

@@ -75,7 +75,7 @@ router: fmt vet
 run: generate fmt vet go-lint
 	go run ./cmd/manager/main.go
 
-deploy2: deploy-dev deploy-dev-storageInitializer deploy-dev-sklearn
+deploy2: deploy-dev deploy-dev-sklearn
 
 # Deploy controller in the configured Kubernetes cluster in ~/.kube/config
 deploy: manifests

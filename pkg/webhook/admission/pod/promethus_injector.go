@@ -15,7 +15,7 @@ import (
 const (
 	PrometheusConfigMapKeyName = "prometheus"
 	PrometheusContainerName    = "prometheus"
-	PrometheusDefaultPort      = 9090
+	PrometheusDefaultPort      = 8888
 	PrometheusConfigVolumeName = "prometheus-config"
 	PrometheusConfigMountPath  = "/etc/prometheus"
 	PrometheusConfigName       = "prometheus-config"
@@ -34,6 +34,7 @@ func getPrometheusConfigs(configMap *corev1.ConfigMap) (*PrometheusConfig, error
 	if prometheusConfigValue, ok := configMap.Data[PrometheusConfigMapKeyName]; ok {
 		err := json.Unmarshal([]byte(prometheusConfigValue), &prometheusConfig)
 		if err != nil {
+			log.Error(err, "Failed to unmarshal prometheus config", "configMap", configMap.Name)
 			return nil, fmt.Errorf("unable to unmarshall prometheus json string due to %w", err)
 		}
 	}
@@ -48,6 +49,7 @@ func getPrometheusConfigs(configMap *corev1.ConfigMap) (*PrometheusConfig, error
 	for _, key := range resourceDefaults {
 		_, err := resource.ParseQuantity(key)
 		if err != nil {
+			log.Error(err, "Failed to parse resource configuration", "configMap", configMap.Name)
 			return nil, fmt.Errorf("failed to parse resource configuration for %q: %s",
 				PrometheusConfigMapKeyName, err.Error())
 		}
@@ -60,17 +62,25 @@ func getPrometheusConfigContent(configMap *corev1.ConfigMap) (string, error) {
 	if prometheusConfigValue, ok := configMap.Data[PrometheusConfigName]; ok {
 		return prometheusConfigValue, nil
 	}
+	log.Error(nil, "Failed to find prometheus config in configmap", "configMap", configMap.Name)
 	return "", fmt.Errorf("prometheus config not found in configmap %s", configMap.Name)
 }
 
 func (injector *PrometheusInjector) InjectPrometheus(pod *corev1.Pod) error {
-	// 检查是否需要注入 Prometheus 容器(仅在启用batcher和prometheus注释时注入)
+	// 检查是否需要注入 Prometheus 容器(仅在启用batcher和prometheus注释时注入)，并检查是否启用了指标聚合
 	_, injectBatcher := pod.ObjectMeta.Annotations[constants.BatcherInternalAnnotationKey]
 	if !injectBatcher {
+		log.Info("Skipping prometheus injection as batcher is not enabled")
+		return nil
+	}
+	t, enableAgg := pod.ObjectMeta.Annotations[constants.EnableMetricAggregation]
+	if !enableAgg || t != "true" {
+		log.Info("Skipping prometheus injection as metric aggregation is not enabled")
 		return nil
 	}
 	_, injectPrometheus := pod.ObjectMeta.Annotations[constants.PrometheusInternalAnnotationKey]
 	if !injectPrometheus {
+		log.Info("Skipping prometheus injection as prometheus is not enabled")
 		return nil
 	}
 
@@ -117,6 +127,10 @@ func (injector *PrometheusInjector) InjectPrometheus(pod *corev1.Pod) error {
 	}
 	pod.Spec.InitContainers = append(pod.Spec.InitContainers, initContainer)
 
+	args := []string{}
+	args = append(args, fmt.Sprintf("--config.file=%s/prometheus.yml", PrometheusConfigMountPath))
+	// 由于 qpext 在9090端口监听，因此 Prometheus 无法使用该端口，因此使用默认端口8888
+	args = append(args, fmt.Sprintf("--web.listen-address=:%d", PrometheusDefaultPort))
 	// 创建 Prometheus 容器，挂载刚才创建的空卷
 	prometheusContainer := &corev1.Container{
 		Name:  PrometheusContainerName,
@@ -165,9 +179,7 @@ func (injector *PrometheusInjector) InjectPrometheus(pod *corev1.Pod) error {
 			},
 		},
 		// 指定 Prometheus 配置文件路径，与 init container 写入的路径一致
-		Args: []string{
-			"--config.file=/etc/prometheus/prometheus.yml",
-		},
+		Args: args,
 	}
 
 	// 添加 Prometheus 容器到 Pod
@@ -176,10 +188,9 @@ func (injector *PrometheusInjector) InjectPrometheus(pod *corev1.Pod) error {
 	// 修改 agent 容器（如果存在），增加启动参数及环境变量
 	for i, container := range pod.Spec.Containers {
 		if container.Name == constants.AgentContainerName {
-			container.Args = append(container.Args, "--prometheus-scrape-url=http://localhost:9090/metrics")
 			container.Env = append(container.Env, corev1.EnvVar{
-				Name:  "PROMETHEUS_SCRAPE_URL",
-				Value: "http://localhost:9090/metrics",
+				Name:  "PROMETHEUS_PORT",
+				Value: fmt.Sprintf("%d", PrometheusDefaultPort),
 			})
 			pod.Spec.Containers[i] = container
 			break

@@ -1,0 +1,251 @@
+# HELP revision_app_request_count The number of requests that are routed to user-container
+# TYPE revision_app_request_count counter
+revision_app_request_count{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor"} 4
+# HELP revision_app_request_latencies The response time in millisecond
+# TYPE revision_app_request_latencies histogram
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="5"} 0
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="10"} 0
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="20"} 0
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="40"} 0
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="60"} 0
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="80"} 0
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="100"} 0
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="150"} 0
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="200"} 0
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="250"} 0
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="300"} 0
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="350"} 4
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="400"} 4
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="450"} 4
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="500"} 4
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="600"} 4
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="700"} 4
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="800"} 4
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="900"} 4
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="1000"} 4
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="2000"} 4
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="5000"} 4
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="10000"} 4
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="20000"} 4
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="50000"} 4
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="100000"} 4
+revision_app_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor",le="+Inf"} 4
+revision_app_request_latencies_sum{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor"} 1214
+revision_app_request_latencies_count{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",service_name="sklearn-iris-pm-agent-predictor"} 4
+# HELP revision_go_alloc The number of bytes of allocated heap objects.
+# TYPE revision_go_alloc gauge
+revision_go_alloc{name=""} 9.705232e+06
+# HELP revision_go_bucket_hash_sys The number of bytes of memory in profiling bucket hash tables.
+# TYPE revision_go_bucket_hash_sys gauge
+revision_go_bucket_hash_sys{name=""} 1.477199e+06
+# HELP revision_go_frees The cumulative count of heap objects freed.
+# TYPE revision_go_frees gauge
+revision_go_frees{name=""} 1.676336e+06
+# HELP revision_go_gc_cpu_fraction The fraction of this program's available CPU time used by the GC since the program started.
+# TYPE revision_go_gc_cpu_fraction gauge
+revision_go_gc_cpu_fraction{name=""} 2.63634426816788e-05
+# HELP revision_go_gc_sys The number of bytes of memory in garbage collection metadata.
+# TYPE revision_go_gc_sys gauge
+revision_go_gc_sys{name=""} 3.264032e+06
+# HELP revision_go_heap_alloc The number of bytes of allocated heap objects.
+# TYPE revision_go_heap_alloc gauge
+revision_go_heap_alloc{name=""} 9.705232e+06
+# HELP revision_go_heap_idle The number of bytes in idle (unused) spans.
+# TYPE revision_go_heap_idle gauge
+revision_go_heap_idle{name=""} 1.544192e+07
+# HELP revision_go_heap_in_use The number of bytes in in-use spans.
+# TYPE revision_go_heap_in_use gauge
+revision_go_heap_in_use{name=""} 1.1739136e+07
+# HELP revision_go_heap_objects The number of allocated heap objects.
+# TYPE revision_go_heap_objects gauge
+revision_go_heap_objects{name=""} 39459
+# HELP revision_go_heap_released The number of bytes of physical memory returned to the OS.
+# TYPE revision_go_heap_released gauge
+revision_go_heap_released{name=""} 1.2189696e+07
+# HELP revision_go_heap_sys The number of bytes of heap memory obtained from the OS.
+# TYPE revision_go_heap_sys gauge
+revision_go_heap_sys{name=""} 2.7181056e+07
+# HELP revision_go_last_gc The time the last garbage collection finished, as nanoseconds since 1970 (the UNIX epoch).
+# TYPE revision_go_last_gc gauge
+revision_go_last_gc{name=""} 1.7427130242244278e+18
+# HELP revision_go_lookups The number of pointer lookups performed by the runtime.
+# TYPE revision_go_lookups gauge
+revision_go_lookups{name=""} 0
+# HELP revision_go_mallocs The cumulative count of heap objects allocated.
+# TYPE revision_go_mallocs gauge
+revision_go_mallocs{name=""} 1.715795e+06
+# HELP revision_go_mcache_in_use The number of bytes of allocated mcache structures.
+# TYPE revision_go_mcache_in_use gauge
+revision_go_mcache_in_use{name=""} 28800
+# HELP revision_go_mcache_sys The number of bytes of memory obtained from the OS for mcache structures.
+# TYPE revision_go_mcache_sys gauge
+revision_go_mcache_sys{name=""} 31200
+# HELP revision_go_mspan_in_use The number of bytes of allocated mspan structures.
+# TYPE revision_go_mspan_in_use gauge
+revision_go_mspan_in_use{name=""} 316480
+# HELP revision_go_mspan_sys The number of bytes of memory obtained from the OS for mspan structures.
+# TYPE revision_go_mspan_sys gauge
+revision_go_mspan_sys{name=""} 375360
+# HELP revision_go_next_gc The target heap size of the next GC cycle.
+# TYPE revision_go_next_gc gauge
+revision_go_next_gc{name=""} 1.244704e+07
+# HELP revision_go_num_forced_gc The number of GC cycles that were forced by the application calling the GC function.
+# TYPE revision_go_num_forced_gc gauge
+revision_go_num_forced_gc{name=""} 0
+# HELP revision_go_num_gc The number of completed GC cycles.
+# TYPE revision_go_num_gc gauge
+revision_go_num_gc{name=""} 36
+# HELP revision_go_other_sys The number of bytes of memory in miscellaneous off-heap runtime allocations.
+# TYPE revision_go_other_sys gauge
+revision_go_other_sys{name=""} 4.196473e+06
+# HELP revision_go_stack_in_use The number of bytes in stack spans.
+# TYPE revision_go_stack_in_use gauge
+revision_go_stack_in_use{name=""} 2.097152e+06
+# HELP revision_go_stack_sys The number of bytes of stack memory obtained from the OS.
+# TYPE revision_go_stack_sys gauge
+revision_go_stack_sys{name=""} 2.097152e+06
+# HELP revision_go_sys The total bytes of memory obtained from the OS.
+# TYPE revision_go_sys gauge
+revision_go_sys{name=""} 3.8622472e+07
+# HELP revision_go_total_alloc The cumulative bytes allocated for heap objects.
+# TYPE revision_go_total_alloc gauge
+revision_go_total_alloc{name=""} 1.969738e+08
+# HELP revision_go_total_gc_pause_ns The cumulative nanoseconds in GC stop-the-world pauses since the program started.
+# TYPE revision_go_total_gc_pause_ns gauge
+revision_go_total_gc_pause_ns{name=""} 5.147573e+06
+# HELP revision_request_count The number of requests that are routed to queue-proxy
+# TYPE revision_request_count counter
+revision_request_count{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor"} 4
+# HELP revision_request_latencies The response time in millisecond
+# TYPE revision_request_latencies histogram
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="5"} 0
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="10"} 0
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="20"} 0
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="40"} 0
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="60"} 0
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="80"} 0
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="100"} 0
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="150"} 0
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="200"} 0
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="250"} 0
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="300"} 0
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="350"} 4
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="400"} 4
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="450"} 4
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="500"} 4
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="600"} 4
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="700"} 4
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="800"} 4
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="900"} 4
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="1000"} 4
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="2000"} 4
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="5000"} 4
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="10000"} 4
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="20000"} 4
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="50000"} 4
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="100000"} 4
+revision_request_latencies_bucket{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor",le="+Inf"} 4
+revision_request_latencies_sum{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor"} 1216
+revision_request_latencies_count{configuration_name="sklearn-iris-pm-agent-predictor",container_name="queue-proxy",namespace_name="kserve-test",pod_name="sklearn-iris-pm-agent-predictor-00001-deployment-66dfc99bd8bzdk",response_code="200",response_code_class="2xx",revision_name="sklearn-iris-pm-agent-predictor-00001",route_tag="DISABLED",service_name="sklearn-iris-pm-agent-predictor"} 4
+# HELP python_gc_objects_uncollectable_total Uncollectable objects found during GC
+# TYPE python_gc_objects_uncollectable_total counter
+python_gc_objects_uncollectable_total{generation="0",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 0
+python_gc_objects_uncollectable_total{generation="1",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 0
+python_gc_objects_uncollectable_total{generation="2",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 0
+# HELP python_info Python platform information
+# TYPE python_info gauge
+python_info{implementation="CPython",major="3",minor="11",patchlevel="11",version="3.11.11",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 1
+# HELP request_preprocess_seconds_created pre-process request latency
+# TYPE request_preprocess_seconds_created gauge
+request_preprocess_seconds_created{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 1.7427128500043087e+09
+# HELP request_postprocess_seconds_created post-process request latency
+# TYPE request_postprocess_seconds_created gauge
+request_postprocess_seconds_created{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 1.7427128500066476e+09
+# HELP process_virtual_memory_bytes Virtual memory size in bytes.
+# TYPE process_virtual_memory_bytes gauge
+process_virtual_memory_bytes{service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 3.922444288e+09
+# HELP process_start_time_seconds Start time of the process since unix epoch in seconds.
+# TYPE process_start_time_seconds gauge
+process_start_time_seconds{service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 1.74271238884e+09
+# HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
+# TYPE process_cpu_seconds_total counter
+process_cpu_seconds_total{service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 5.8100000000000005
+# HELP request_preprocess_seconds pre-process request latency
+# TYPE request_preprocess_seconds histogram
+request_preprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.005"} 3
+request_preprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.01"} 3
+request_preprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.025"} 3
+request_preprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.05"} 3
+request_preprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.075"} 3
+request_preprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.1"} 3
+request_preprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.25"} 3
+request_preprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.5"} 3
+request_preprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.75"} 3
+request_preprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="1"} 3
+request_preprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="2.5"} 3
+request_preprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="5"} 3
+request_preprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="7.5"} 3
+request_preprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="10"} 3
+request_preprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="+Inf"} 3
+request_preprocess_seconds_sum{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 5.1659999598996365e-05
+request_preprocess_seconds_count{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 3
+# HELP request_postprocess_seconds post-process request latency
+# TYPE request_postprocess_seconds histogram
+request_postprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.005"} 3
+request_postprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.01"} 3
+request_postprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.025"} 3
+request_postprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.05"} 3
+request_postprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.075"} 3
+request_postprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.1"} 3
+request_postprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.25"} 3
+request_postprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.5"} 3
+request_postprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.75"} 3
+request_postprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="1"} 3
+request_postprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="2.5"} 3
+request_postprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="5"} 3
+request_postprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="7.5"} 3
+request_postprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="10"} 3
+request_postprocess_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="+Inf"} 3
+request_postprocess_seconds_sum{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 1.7752000076143304e-05
+request_postprocess_seconds_count{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 3
+# HELP python_gc_objects_collected_total Objects collected during gc
+# TYPE python_gc_objects_collected_total counter
+python_gc_objects_collected_total{generation="0",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 18485
+python_gc_objects_collected_total{generation="1",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 6176
+python_gc_objects_collected_total{generation="2",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 1170
+# HELP python_gc_collections_total Number of times this generation was collected
+# TYPE python_gc_collections_total counter
+python_gc_collections_total{generation="0",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 663
+python_gc_collections_total{generation="1",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 60
+python_gc_collections_total{generation="2",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 5
+# HELP process_resident_memory_bytes Resident memory size in bytes.
+# TYPE process_resident_memory_bytes gauge
+process_resident_memory_bytes{service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 3.18496768e+08
+# HELP process_open_fds Number of open file descriptors.
+# TYPE process_open_fds gauge
+process_open_fds{service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 14
+# HELP process_max_fds Maximum number of open file descriptors.
+# TYPE process_max_fds gauge
+process_max_fds{service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 1.048576e+06
+# HELP request_predict_seconds predict request latency
+# TYPE request_predict_seconds histogram
+request_predict_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.005"} 3
+request_predict_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.01"} 3
+request_predict_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.025"} 3
+request_predict_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.05"} 3
+request_predict_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.075"} 3
+request_predict_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.1"} 3
+request_predict_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.25"} 3
+request_predict_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.5"} 3
+request_predict_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="0.75"} 3
+request_predict_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="1"} 3
+request_predict_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="2.5"} 3
+request_predict_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="5"} 3
+request_predict_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="7.5"} 3
+request_predict_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="10"} 3
+request_predict_seconds_bucket{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001",le="+Inf"} 3
+request_predict_seconds_sum{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 0.002681284000118467
+request_predict_seconds_count{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 3
+# HELP request_predict_seconds_created predict request latency
+# TYPE request_predict_seconds_created gauge
+request_predict_seconds_created{model_name="sklearn-iris-pm-agent",service_name="sklearn-iris-pm-agent-predictor",configuration_name="sklearn-iris-pm-agent-predictor",revision_name="sklearn-iris-pm-agent-predictor-00001"} 1.7427128500044599e+09

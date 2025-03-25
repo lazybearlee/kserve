@@ -5,7 +5,7 @@ metadata:
   annotations:
     serving.kserve.io/enable-metric-aggregation: "true"
     serving.kserve.io/enable-prometheus-scraping: "true"
-    serving.kserve.io/prometheus: "true"
+    internal.serving.kserve.io/prometheus: "true"
 spec:
   predictor:
     batcher:

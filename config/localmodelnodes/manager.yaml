@@ -21,6 +21,8 @@ spec:
       annotations:
         kubectl.kubernetes.io/default-container: manager
     spec:
+      imagePullSecrets:
+        - name: aliyun-registry-secret
       nodeSelector:
         kserve/localmodel: worker
       serviceAccountName: kserve-localmodelnode-agent

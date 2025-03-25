@@ -1,0 +1,246 @@
+[
+    {
+        "Id": "7b0823e97a94b3f8aaa22274632547a2f7a6007d3e93b3df7749393aa2183c64",
+        "Created": "2025-02-25T15:27:38.193687663Z",
+        "Path": "/usr/local/bin/entrypoint",
+        "Args": [
+            "/sbin/init"
+        ],
+        "State": {
+            "Status": "exited",
+            "Running": false,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 0,
+            "ExitCode": 128,
+            "Error": "failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: unable to apply cgroup configuration: unable to start unit \"docker-7b0823e97a94b3f8aaa22274632547a2f7a6007d3e93b3df7749393aa2183c64.scope\" (properties [{Name:Description Value:\"libcontainer container 7b0823e97a94b3f8aaa22274632547a2f7a6007d3e93b3df7749393aa2183c64\"} {Name:Slice Value:\"system.slice\"} {Name:Delegate Value:true} {Name:PIDs Value:@au [685]} {Name:MemoryAccounting Value:true} {Name:CPUAccounting Value:true} {Name:IOAccounting Value:true} {Name:TasksAccounting Value:true} {Name:DefaultDependencies Value:false}]): error creating systemd unit `docker-7b0823e97a94b3f8aaa22274632547a2f7a6007d3e93b3df7749393aa2183c64.scope`: got `failed`: unknown",
+            "StartedAt": "2025-03-24T06:49:16.593711766Z",
+            "FinishedAt": "2025-03-24T06:50:00.440395753Z"
+        },
+        "Image": "sha256:9319cf209ac58c5f091c9cb183fdd8784e753cfb5b1b3cb6692b26abd8d4efac",
+        "ResolvConfPath": "/var/lib/docker/containers/7b0823e97a94b3f8aaa22274632547a2f7a6007d3e93b3df7749393aa2183c64/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/7b0823e97a94b3f8aaa22274632547a2f7a6007d3e93b3df7749393aa2183c64/hostname",
+        "HostsPath": "/var/lib/docker/containers/7b0823e97a94b3f8aaa22274632547a2f7a6007d3e93b3df7749393aa2183c64/hosts",
+        "LogPath": "/var/lib/docker/containers/7b0823e97a94b3f8aaa22274632547a2f7a6007d3e93b3df7749393aa2183c64/7b0823e97a94b3f8aaa22274632547a2f7a6007d3e93b3df7749393aa2183c64-json.log",
+        "Name": "/knative-control-plane",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/lib/modules:/lib/modules:ro"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "kind",
+            "PortBindings": {
+                "31080/tcp": [
+                    {
+                        "HostIp": "0.0.0.0",
+                        "HostPort": "80"
+                    }
+                ],
+                "6443/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "38245"
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "on-failure",
+                "MaximumRetryCount": 1
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": true,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": [
+                "seccomp=unconfined",
+                "apparmor=unconfined",
+                "label=disable"
+            ],
+            "Tmpfs": {
+                "/run": "",
+                "/tmp": ""
+            },
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": [],
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "MaskedPaths": null,
+            "ReadonlyPaths": null,
+            "Init": false
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/fc94ed3b8da1becc2321b9e638d597fab85f87fb3150a0db760b9bdb35b19dbf-init/diff:/var/lib/docker/overlay2/e183d0d6c444ef69392b09e74a624df4978915f1618cf1e1b495ef5d49cf930c/diff:/var/lib/docker/overlay2/be40f80b20f49b1aa74d54ad6556b031d32de1756e83243ea7f0ecf86f146168/diff",
+                "MergedDir": "/var/lib/docker/overlay2/fc94ed3b8da1becc2321b9e638d597fab85f87fb3150a0db760b9bdb35b19dbf/merged",
+                "UpperDir": "/var/lib/docker/overlay2/fc94ed3b8da1becc2321b9e638d597fab85f87fb3150a0db760b9bdb35b19dbf/diff",
+                "WorkDir": "/var/lib/docker/overlay2/fc94ed3b8da1becc2321b9e638d597fab85f87fb3150a0db760b9bdb35b19dbf/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/lib/modules",
+                "Destination": "/lib/modules",
+                "Mode": "ro",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "volume",
+                "Name": "dc4a7d8eb2c377e2ff38d56290131a0967c16ee22bc7477ea7af00efe2130347",
+                "Source": "/var/lib/docker/volumes/dc4a7d8eb2c377e2ff38d56290131a0967c16ee22bc7477ea7af00efe2130347/_data",
+                "Destination": "/var",
+                "Driver": "local",
+                "Mode": "",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+        "Config": {
+            "Hostname": "knative-control-plane",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "31080/tcp": {},
+                "6443/tcp": {}
+            },
+            "Tty": true,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "no_proxy=172.18.0.0/16,fc00:f853:ccd:e793::/64,10.96.0.0/16,10.244.0.0/16,knative-control-plane,.svc,.svc.cluster,.svc.cluster.local",
+                "HTTP_PROXY=http://172.29.16.1:10808",
+                "KUBECONFIG=/etc/kubernetes/admin.conf",
+                "KIND_EXPERIMENTAL_CONTAINERD_SNAPSHOTTER",
+                "http_proxy=http://172.29.16.1:10808",
+                "HTTPS_PROXY=http://172.29.16.1:10808",
+                "https_proxy=http://172.29.16.1:10808",
+                "NO_PROXY=172.18.0.0/16,fc00:f853:ccd:e793::/64,10.96.0.0/16,10.244.0.0/16,knative-control-plane,.svc,.svc.cluster,.svc.cluster.local",
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "container=docker"
+            ],
+            "Cmd": null,
+            "Image": "kindest/node:v1.30.0",
+            "Volumes": {
+                "/var": {}
+            },
+            "WorkingDir": "/",
+            "Entrypoint": [
+                "/usr/local/bin/entrypoint",
+                "/sbin/init"
+            ],
+            "OnBuild": null,
+            "Labels": {
+                "io.x-k8s.kind.cluster": "knative",
+                "io.x-k8s.kind.role": "control-plane"
+            },
+            "StopSignal": "SIGRTMIN+3"
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "",
+            "SandboxKey": "",
+            "Ports": {},
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "",
+            "Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "MacAddress": "",
+            "Networks": {
+                "kind": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "",
+                    "DriverOpts": null,
+                    "NetworkID": "02bfddec53c5207b6d8c1dfb87ede95b1e2763855394c0ce7ab63667094b7167",
+                    "EndpointID": "",
+                    "Gateway": "",
+                    "IPAddress": "",
+                    "IPPrefixLen": 0,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": [
+                        "knative-control-plane",
+                        "7b0823e97a94"
+                    ]
+                }
+            }
+        }
+    }
+]

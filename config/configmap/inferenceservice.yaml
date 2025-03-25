@@ -569,6 +569,81 @@ data:
             }
         }
 
+     # ====================================== PROMETHEUS CONFIGURATION ======================================
+     # Example
+     prometheus: |-
+       {
+         "image": "m.daocloud.io/docker.io/prom/prometheus:v2.54.1",
+         "cpuRequest": "100m",
+         "cpuLimit": "200m",
+         "memoryRequest": "256Mi",
+         "memoryLimit": "512Mi"
+       }
+      prometheus: |-
+        {
+          # image contains the default prometheus image uri.
+          "image": "m.daocloud.io/docker.io/prom/prometheus:v2.54.1",
+          
+          # cpuRequest is the requests.cpu to set for the prometheus container.
+          "cpuRequest": "100m",
+          
+          # cpuLimit is the limits.cpu to set for the prometheus container.
+          "cpuLimit": "200m",
+          
+          # memoryRequest is the requests.memory to set for the prometheus container.
+          "memoryRequest": "256Mi",
+          
+          # memoryLimit is the limits.memory to set for the prometheus container.
+          "memoryLimit": "512Mi"
+        }
+
+     # ====================================== PROMETHEUS CONFIGURATION ======================================
+     # Example
+      prometheus-config: |-
+        global:
+          scrape_interval: 15s
+          evaluation_interval: 15s
+        scrape_configs:
+          - job_name: 'pod-aggregate'
+            metrics_path: '/metrics'
+            scrape_interval: 1s
+            static_configs:
+              - targets: ['localhost:9090']
+        prometheus-config: |-
+          {
+            # global contains the global configuration for prometheus.
+            "global": {
+                # scrape_interval is the interval at which prometheus scrapes the targets.
+                "scrape_interval": 15s,
+                
+                # evaluation_interval is the interval at which prometheus evaluates the rules.
+                "evaluation_interval": 15s
+            },
+            
+            # scrape_configs contains the scrape configuration for prometheus.
+            "scrape_configs": [
+                {
+                    # job_name is the name of the job.
+                    "job_name": 'pod-aggregate',
+                    
+                    # metrics_path is the path to the metrics.
+                    "metrics_path": '/metrics',
+                    
+                    # scrape_interval is the interval at which prometheus scrapes the targets.
+                    "scrape_interval": 1s,
+                    
+                    # static_configs contains the static configuration for prometheus.
+                    "static_configs": [
+                        {
+                            # targets is the list of targets.
+                            "targets": ['localhost:9090']
+                        }
+                    ]
+                }
+            ]
+          }
+
+
   explainers: |-
     {
         "art": {
@@ -720,4 +795,4 @@ data:
         metrics_path: '/metrics'
         scrape_interval: 1s
         static_configs:
-          - targets: ['localhost:9090']
+          - targets: ['localhost:9088']
