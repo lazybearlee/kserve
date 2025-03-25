@@ -35,6 +35,10 @@ const (
 	SleepTime    = time.Microsecond * 100
 	MaxBatchSize = 32
 	MaxLatency   = 5000
+
+	// Metrics constants
+	MaxWindowSize  = 10
+	RecordInterval = 1000 * time.Millisecond
 )
 
 type Request struct {
@@ -196,8 +200,7 @@ func (handler *BatchHandler) Consume() {
 		handler.MaxLatency = MaxLatency
 	}
 	handler.batcherInfo.InitializeInfo()
-	// 启动动态调节循环（该循环中会周期性调整 handler.BatchSize）
-	go handler.AdjustDynamicBatchSizeLoop()
+
 	handler.batch()
 }
 
@@ -210,19 +213,31 @@ type BatchHandler struct {
 	MaxLatency   int
 	batcherInfo  BatcherInfo
 	InfoRwMutex  sync.RWMutex
+	optimizer    *BatchOptimizer
+	estimator    *ParameterEstimator
+	metrics      *MetricsCollector
 }
 
 func New(maxBatchSize int, maxLatency int, handler http.Handler, logger *zap.SugaredLogger) *BatchHandler {
-	batchHandler := BatchHandler{
+	batchHandler := &BatchHandler{
 		next:         handler,
 		log:          logger,
 		channelIn:    make(chan Input),
-		BatchSize:    1, // default to 1
+		BatchSize:    1,
 		MaxBatchSize: maxBatchSize,
 		MaxLatency:   maxLatency,
+		metrics:      NewMetricsCollector(100),
 	}
+	// 初始化估计器和优化器
+	batchHandler.estimator = NewParameterEstimator(batchHandler.metrics, 30*time.Second)
+	batchHandler.optimizer = NewBatchOptimizer(batchHandler.estimator, batchHandler, 5*time.Second)
+
+	// 启动协程
 	go batchHandler.Consume()
-	return &batchHandler
+	go batchHandler.estimator.Run()
+	go batchHandler.optimizer.Run()
+	go batchHandler.recordLoop()
+	return batchHandler
 }
 
 func (handler *BatchHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -268,5 +283,60 @@ func (handler *BatchHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
+	}
+}
+
+// setDynamicBatchSize 设置动态批处理大小
+func (handler *BatchHandler) setDynamicBatchSize(size int) {
+	handler.InfoRwMutex.Lock()
+	defer handler.InfoRwMutex.Unlock()
+
+	handler.BatchSize = size
+}
+
+// getQueueLength 获取当前队列长度
+func (handler *BatchHandler) getCurrentQueueLength() float64 {
+	handler.InfoRwMutex.RLock()
+	defer handler.InfoRwMutex.RUnlock()
+
+	return float64(handler.batcherInfo.CurrentInputLen)
+}
+
+func (handler *BatchHandler) recordMetrics() {
+	handler.InfoRwMutex.RLock()
+	defer handler.InfoRwMutex.RUnlock()
+
+	r, err := getArrivalRate()
+	if err != nil {
+		handler.log.Errorf("Failed to get arrival rate: %v", err)
+		return
+	}
+	L0, err := getBaseLatency()
+	if err != nil {
+		handler.log.Errorf("Failed to get base latency: %v", err)
+		return
+	}
+	L, err := getAverageLatency()
+	if err != nil {
+		handler.log.Errorf("Failed to get average latency: %v", err)
+	}
+
+	handler.metrics.AddMetric(BatchMetrics{
+		BatchSize:        handler.BatchSize,
+		QueueLength:      handler.batcherInfo.CurrentInputLen,
+		ProcessingTimeMs: L,
+		BaseLatencyMs:    L0,
+		ArrivalRate:      r,
+		Timestamp:        time.Now(),
+	})
+}
+
+// recordLoop 记录循环
+func (handler *BatchHandler) recordLoop() {
+	for {
+		select {
+		case <-time.After(RecordInterval):
+			handler.recordMetrics()
+		}
 	}
 }
