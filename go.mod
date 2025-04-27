@@ -46,7 +46,7 @@ require (
 	sigs.k8s.io/yaml v1.4.0
 )
 
-require github.com/sajari/regression v1.0.1 // indirect
+require github.com/kylelemons/godebug v1.1.0 // indirect
 
 require (
 	cel.dev/expr v0.19.0 // indirect
@@ -73,7 +73,6 @@ require (
 	github.com/evanphx/json-patch/v5 v5.9.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/fxamacker/cbor/v2 v2.7.0 // indirect
-	github.com/go-gota/gota v0.12.0
 	github.com/go-kit/log v0.2.1 // indirect
 	github.com/go-logfmt/logfmt v0.6.0 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
@@ -112,7 +111,7 @@ require (
 	github.com/perimeterx/marshmallow v1.1.5 // indirect
 	github.com/planetscale/vtprotobuf v0.6.1-0.20240319094008-0393e58bdf10 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
-	github.com/prometheus/client_golang v1.20.4 // indirect
+	github.com/prometheus/client_golang v1.20.4
 	github.com/prometheus/client_model v0.6.1 // indirect
 	github.com/prometheus/common v0.57.0 // indirect
 	github.com/prometheus/procfs v0.15.1 // indirect
@@ -142,7 +141,6 @@ require (
 	golang.org/x/text v0.23.0 // indirect
 	golang.org/x/time v0.9.0 // indirect
 	golang.org/x/tools v0.29.0 // indirect
-	gonum.org/v1/gonum v0.16.0
 	google.golang.org/genproto v0.0.0-20241118233622-e639e219e697 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20241209162323-e6fa225c2576 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250127172529-29210b9bc287 // indirect

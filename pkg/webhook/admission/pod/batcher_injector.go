@@ -28,11 +28,10 @@ import (
 )
 
 const (
-	BatcherContainerName        = "batcher"
-	BatcherConfigMapKeyName     = "batcher"
-	BatcherEnableFlag           = "--enable-batcher"
-	BatcherArgumentMaxBatchSize = "--max-batchsize"
-	BatcherArgumentMaxLatency   = "--max-latency"
+	BatcherContainerName               = "batcher"
+	BatcherConfigMapKeyName            = "batcher"
+	BatcherArgumentExportMetricsPort   = "--export-metrics-port"
+	BatcherArgumentUseDynamicBatchSize = "--use-dynamic-batchsize"
 )
 
 type BatcherConfig struct {

@@ -370,7 +370,16 @@ func (mi *StorageInitializerInjector) InjectStorageInitializer(pod *corev1.Pod) 
 	storageInitializerImage := StorageInitializerContainerImage + ":" + StorageInitializerContainerImageVersion
 	if mi.config != nil && mi.config.Image != "" {
 		storageInitializerImage = mi.config.Image
+	} else {
+		if mi.config == nil {
+			log.Info("StorageInitializerConfig is nil, using default image")
+		}
+		if mi.config.Image == "" {
+			log.Info("StorageInitializerConfig.Image is empty, using default image")
+		}
 	}
+
+	log.Info("Injecting storage initializer", "image", storageInitializerImage, "srcURI", srcURI)
 
 	// Add an init container to run provisioning logic to the PodSpec
 	initContainer := &corev1.Container{

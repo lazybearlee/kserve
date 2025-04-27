@@ -76,12 +76,65 @@ func addBatcherAnnotations(batcher *v1beta1.Batcher, annotations map[string]stri
 		annotations[constants.BatcherInternalAnnotationKey] = "true"
 
 		if batcher.MaxBatchSize != nil {
-			s := strconv.Itoa(*batcher.MaxBatchSize)
-			annotations[constants.BatcherMaxBatchSizeInternalAnnotationKey] = s
+			annotations[constants.BatcherMaxBatchSizeInternalAnnotationKey] = strconv.Itoa(*batcher.MaxBatchSize)
 		}
 		if batcher.MaxLatency != nil {
-			s := strconv.Itoa(*batcher.MaxLatency)
-			annotations[constants.BatcherMaxLatencyInternalAnnotationKey] = s
+			annotations[constants.BatcherMaxLatencyInternalAnnotationKey] = strconv.Itoa(*batcher.MaxLatency)
+		}
+
+		isAdaptive := false // Determine if adaptive mode is intended
+		if batcher.EnableAdaptive != nil {
+			annotations[constants.BatcherEnableAdaptiveInternalAnnotationKey] = strconv.FormatBool(*batcher.EnableAdaptive)
+			isAdaptive = *batcher.EnableAdaptive
+		} else {
+			// If EnableAdaptive is nil, adaptive might still be enabled if TargetLatency is set
+			if batcher.TargetLatency != nil {
+				isAdaptive = true
+				// Add EnableAdaptive=true annotation implicitly if TargetLatency is set but EnableAdaptive isn't
+				annotations[constants.BatcherEnableAdaptiveInternalAnnotationKey] = "true"
+			}
+		}
+
+		if isAdaptive {
+			if batcher.MinBatchSize != nil {
+				annotations[constants.BatcherMinBatchSizeInternalAnnotationKey] = strconv.Itoa(*batcher.MinBatchSize)
+			}
+			if batcher.MinLatency != nil {
+				annotations[constants.BatcherMinLatencyInternalAnnotationKey] = strconv.Itoa(*batcher.MinLatency)
+			}
+			if batcher.TargetLatency != nil {
+				annotations[constants.BatcherTargetLatencyInternalAnnotationKey] = strconv.Itoa(*batcher.TargetLatency)
+			}
+
+			// --- Handle String Fields ---
+			if batcher.TargetLatencyPercentile != nil {
+				// TODO: Add validation here? Controller should validate the string format?
+				// For now, just pass the string through. Agent will parse/validate.
+				annotations[constants.BatcherTargetLatencyPercentileInternalAnnotationKey] = *batcher.TargetLatencyPercentile
+			}
+			if batcher.QueueLengthBasedIncreaseThreshold != nil {
+				// TODO: Add validation here?
+				annotations[constants.BatcherQueueLengthThresholdInternalAnnotationKey] = *batcher.QueueLengthBasedIncreaseThreshold
+			}
+			// --- End Handle String Fields ---
+
+			if batcher.StateTransitionCooldown != nil {
+				annotations[constants.BatcherStateTransitionCooldownInternalAnnotationKey] = strconv.Itoa(*batcher.StateTransitionCooldown)
+			}
+		}
+	}
+}
+
+// --- NEW addCacheAnnotations ---
+func addCacheAnnotations(cache *v1beta1.CacheSpec, annotations map[string]string) {
+	if cache != nil && cache.Enable != nil && *cache.Enable {
+		annotations[constants.CacheInternalAnnotationKey] = "true" // Define constant
+
+		if cache.MaxSizeBytes != nil {
+			annotations[constants.CacheMaxSizeMbInternalAnnotationKey] = strconv.Itoa(*cache.MaxSizeBytes) // Define constant
+		}
+		if cache.DefaultTTLSeconds != nil {
+			annotations[constants.CacheDefaultTtlSecondsInternalAnnotationKey] = strconv.Itoa(*cache.DefaultTTLSeconds) // Define constant
 		}
 	}
 }

@@ -111,6 +111,9 @@ type ComponentExtensionSpec struct {
 	// Activate request batching and batching configurations
 	// +optional
 	Batcher *Batcher `json:"batcher,omitempty"`
+	// CacheSpec specifies the caching args for the predictor component
+	// +optional
+	Cache *CacheSpec `json:"cache,omitempty"`
 	// Labels that will be added to the component pod.
 	// More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 	// +optional

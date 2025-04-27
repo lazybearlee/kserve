@@ -17,16 +17,17 @@ limitations under the License.
 package main
 
 import (
-	logger "github.com/kserve/kserve/qpext"
-	io_prometheus_client "github.com/prometheus/client_model/go"
-	"github.com/prometheus/common/expfmt"
-	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"reflect"
 	"strings"
 	"testing"
+
+	logger "github.com/kserve/kserve/qpext"
+	io_prometheus_client "github.com/prometheus/client_model/go"
+	"github.com/prometheus/common/expfmt"
+	"github.com/stretchr/testify/assert"
 )
 
 var testEnvVarVal = "something"
@@ -439,7 +440,7 @@ func TestHandleStatsErr(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			sc := NewScrapeConfigs(zapLogger, test.queueproxy, test.app, DefaultQueueProxyMetricsPath)
+			sc := NewScrapeConfigs(zapLogger, test.queueproxy, test.app, DefaultQueueProxyMetricsPath, "")
 			req := &http.Request{}
 			rec := httptest.NewRecorder()
 			sc.handleStats(rec, req)

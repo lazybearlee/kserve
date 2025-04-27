@@ -74,6 +74,14 @@ func setMetricAggregationEnvVarsAndPorts(pod *corev1.Pod) error {
 				Name:  constants.QueueProxyAggregatePrometheusMetricsPortEnvVarKey,
 				Value: constants.QueueProxyAggregatePrometheusMetricsPort,
 			})
+
+			// set agent container port/path
+			if _, ok := pod.ObjectMeta.Annotations[constants.BatcherInternalAnnotationKey]; ok {
+				pod.Spec.Containers[i].Env = append(pod.Spec.Containers[i].Env, corev1.EnvVar{
+					Name:  constants.AgentPrometheusPortEnvVarKey,
+					Value: constants.DefaultAgentPrometheusPort,
+				})
+			}
 			aggrPort, err := utils.StringToInt32(constants.QueueProxyAggregatePrometheusMetricsPort)
 			if err != nil {
 				return err

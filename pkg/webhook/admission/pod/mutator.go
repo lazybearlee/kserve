@@ -105,6 +105,8 @@ func (mutator *Mutator) mutate(pod *corev1.Pod, configMap *corev1.ConfigMap) err
 		client:            mutator.Client,
 	}
 
+	log.Info("StorageInitializer config", "config", storageInitializerConfig)
+
 	loggerConfig, err := getLoggerConfigs(configMap)
 	if err != nil {
 		return err
@@ -165,6 +167,10 @@ func (mutator *Mutator) mutate(pod *corev1.Pod, configMap *corev1.ConfigMap) err
 		}
 	}
 
+	// 打印initcontainer信息
+	for _, initContainer := range pod.Spec.InitContainers {
+		log.Info("InitContainer", "InitContainer Spec", initContainer)
+	}
 	// 打印当前的pod容器信息
 	for _, container := range pod.Spec.Containers {
 		log.Info("Container", "Container Spec", container)

@@ -101,6 +101,7 @@ func (p *Predictor) Reconcile(ctx context.Context, isvc *v1beta1.InferenceServic
 	addStorageSpecAnnotations(isvc.Spec.Predictor.GetImplementation().GetStorageSpec(), annotations)
 	// Add agent annotations so mutator will mount model agent to multi-model InferenceService's predictor
 	addAgentAnnotations(isvc, annotations)
+	addCacheAnnotations(isvc.Spec.Predictor.Cache, annotations)
 
 	// Reconcile modelConfig
 	// 其实还未实现

@@ -19,11 +19,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/hashicorp/go-multierror"
-	logger "github.com/kserve/kserve/qpext"
-	io_prometheus_client "github.com/prometheus/client_model/go"
-	"github.com/prometheus/common/expfmt"
-	"go.uber.org/zap"
 	"io"
 	"net"
 	"net/http"
@@ -31,9 +26,14 @@ import (
 	"strconv"
 	"strings"
 	"time"
-)
 
-import "knative.dev/serving/pkg/queue/sharedmain"
+	"github.com/hashicorp/go-multierror"
+	logger "github.com/kserve/kserve/qpext"
+	io_prometheus_client "github.com/prometheus/client_model/go"
+	"github.com/prometheus/common/expfmt"
+	"go.uber.org/zap"
+	"knative.dev/serving/pkg/queue/sharedmain"
+)
 
 var (
 	EnvVars   = []string{"SERVING_SERVICE", "SERVING_CONFIGURATION", "SERVING_REVISION"}
@@ -44,9 +44,11 @@ const (
 	// aggregate scraping env vars from kserve/pkg/constants
 	KServeContainerPrometheusMetricsPortEnvVarKey     = "KSERVE_CONTAINER_PROMETHEUS_METRICS_PORT"
 	KServeContainerPrometheusMetricsPathEnvVarKey     = "KSERVE_CONTAINER_PROMETHEUS_METRICS_PATH"
+	AgentContainerPrometheusMetricsPortEnvVarKey      = "AGENT_PROMETHEUS_PORT"
 	QueueProxyAggregatePrometheusMetricsPortEnvVarKey = "AGGREGATE_PROMETHEUS_METRICS_PORT"
 	QueueProxyMetricsPort                             = "9091"
 	DefaultQueueProxyMetricsPath                      = "/metrics"
+	DefaultAgentMetricsPath                           = "/metrics"
 	prometheusTimeoutHeader                           = "X-Prometheus-Scrape-Timeout-Seconds"
 )
 
@@ -56,6 +58,8 @@ type ScrapeConfigurations struct {
 	QueueProxyPort string `json:"port"`
 	AppPort        string
 	AppPath        string
+	AgentPort      string
+	AgentPath      string
 }
 
 func getURL(port string, path string) string {
@@ -229,13 +233,15 @@ func scrape(url string, header http.Header, logger *zap.Logger) (io.ReadCloser, 
 	return resp.Body, cancel, format, nil
 }
 
-func NewScrapeConfigs(logger *zap.Logger, queueProxyPort string, appPort string, appPath string) *ScrapeConfigurations {
+func NewScrapeConfigs(logger *zap.Logger, queueProxyPort, appPort, appPath, agentPort string) *ScrapeConfigurations {
 	return &ScrapeConfigurations{
 		logger:         logger,
 		QueueProxyPath: DefaultQueueProxyMetricsPath,
 		QueueProxyPort: queueProxyPort,
 		AppPort:        appPort,
 		AppPath:        appPath,
+		AgentPort:      agentPort,
+		AgentPath:      DefaultAgentMetricsPath,
 	}
 }
 
@@ -243,6 +249,8 @@ func (sc *ScrapeConfigurations) handleStats(w http.ResponseWriter, r *http.Reque
 	var err error
 	var queueProxy, application io.ReadCloser
 	var queueProxyCancel, appCancel context.CancelFunc
+	var agentMetrics io.ReadCloser
+	var agentMetricsCancel context.CancelFunc
 
 	defer func() {
 		if queueProxy != nil {
@@ -263,6 +271,15 @@ func (sc *ScrapeConfigurations) handleStats(w http.ResponseWriter, r *http.Reque
 		if appCancel != nil {
 			appCancel()
 		}
+		if agentMetrics != nil {
+			err = agentMetrics.Close()
+			if err != nil {
+				sc.logger.Error("agent metrics connection is not closed", zap.Error(err))
+			}
+		}
+		if agentMetricsCancel != nil {
+			agentMetricsCancel()
+		}
 	}()
 
 	// Gather all the metrics we will merge
@@ -279,6 +296,14 @@ func (sc *ScrapeConfigurations) handleStats(w http.ResponseWriter, r *http.Reque
 		var contentType string
 		if application, appCancel, contentType, err = scrape(kserveContainerURL, r.Header, sc.logger); err != nil {
 			sc.logger.Error("failed scraping application metrics", zap.Error(err), zap.String("content type", contentType))
+		}
+	}
+
+	if sc.AgentPort != "" {
+		agentURL := getURL(sc.AgentPort, sc.AgentPath)
+		var contentType string
+		if agentMetrics, agentMetricsCancel, contentType, err = scrape(agentURL, r.Header, sc.logger); err != nil {
+			sc.logger.Error("failed scraping agent metrics", zap.Error(err), zap.String("content type", contentType))
 		}
 	}
 
@@ -306,6 +331,18 @@ func (sc *ScrapeConfigurations) handleStats(w http.ResponseWriter, r *http.Reque
 			sc.logger.Error("failed scraping and writing metrics", zap.Error(err))
 		}
 	}
+
+	if agentMetrics != nil {
+		var parser expfmt.TextParser
+		var mfs map[string]*io_prometheus_client.MetricFamily
+		mfs, err = parser.TextToMetricFamilies(agentMetrics)
+		if err != nil {
+			sc.logger.Error("error converting text to metric families", zap.Error(err), zap.Any("metric families return value", mfs))
+		}
+		if err = scrapeAndWriteAppMetrics(mfs, w, format, sc.logger); err != nil {
+			sc.logger.Error("failed scraping and writing metrics", zap.Error(err))
+		}
+	}
 }
 
 func main() {
@@ -318,6 +355,7 @@ func main() {
 		QueueProxyMetricsPort,
 		os.Getenv(KServeContainerPrometheusMetricsPortEnvVarKey),
 		os.Getenv(KServeContainerPrometheusMetricsPathEnvVarKey),
+		os.Getenv(AgentContainerPrometheusMetricsPortEnvVarKey),
 	)
 	mux.HandleFunc(`/metrics`, sc.handleStats)
 	l, err := net.Listen("tcp", fmt.Sprintf(":%v", aggregateMetricsPort))

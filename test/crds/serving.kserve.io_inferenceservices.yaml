@@ -6605,11 +6605,42 @@ spec:
                     type: boolean
                   batcher:
                     properties:
+                      enableAdaptive:
+                        type: boolean
                       maxBatchSize:
                         type: integer
                       maxLatency:
                         type: integer
+                      minBatchSize:
+                        minimum: 1
+                        type: integer
+                      minLatency:
+                        minimum: 1
+                        type: integer
+                      queueLengthThreshold:
+                        pattern: ^0(\.\d+)?$|^1(\.0+)?$
+                        type: string
+                      stateTransitionCooldown:
+                        minimum: 0
+                        type: integer
+                      targetLatency:
+                        minimum: 1
+                        type: integer
+                      targetLatencyPercentile:
+                        pattern: ^0(\.\d+)?$|^1(\.0+)?$
+                        type: string
                       timeout:
+                        type: integer
+                    type: object
+                  cache:
+                    properties:
+                      defaultTtlSeconds:
+                        minimum: 1
+                        type: integer
+                      enable:
+                        type: boolean
+                      maxSizeMb:
+                        minimum: 1
                         type: integer
                     type: object
                   canaryTrafficPercent:
@@ -9593,11 +9624,42 @@ spec:
                     type: boolean
                   batcher:
                     properties:
+                      enableAdaptive:
+                        type: boolean
                       maxBatchSize:
                         type: integer
                       maxLatency:
                         type: integer
+                      minBatchSize:
+                        minimum: 1
+                        type: integer
+                      minLatency:
+                        minimum: 1
+                        type: integer
+                      queueLengthThreshold:
+                        pattern: ^0(\.\d+)?$|^1(\.0+)?$
+                        type: string
+                      stateTransitionCooldown:
+                        minimum: 0
+                        type: integer
+                      targetLatency:
+                        minimum: 1
+                        type: integer
+                      targetLatencyPercentile:
+                        pattern: ^0(\.\d+)?$|^1(\.0+)?$
+                        type: string
                       timeout:
+                        type: integer
+                    type: object
+                  cache:
+                    properties:
+                      defaultTtlSeconds:
+                        minimum: 1
+                        type: integer
+                      enable:
+                        type: boolean
+                      maxSizeMb:
+                        minimum: 1
                         type: integer
                     type: object
                   canaryTrafficPercent:
@@ -23754,11 +23816,42 @@ spec:
                     type: boolean
                   batcher:
                     properties:
+                      enableAdaptive:
+                        type: boolean
                       maxBatchSize:
                         type: integer
                       maxLatency:
                         type: integer
+                      minBatchSize:
+                        minimum: 1
+                        type: integer
+                      minLatency:
+                        minimum: 1
+                        type: integer
+                      queueLengthThreshold:
+                        pattern: ^0(\.\d+)?$|^1(\.0+)?$
+                        type: string
+                      stateTransitionCooldown:
+                        minimum: 0
+                        type: integer
+                      targetLatency:
+                        minimum: 1
+                        type: integer
+                      targetLatencyPercentile:
+                        pattern: ^0(\.\d+)?$|^1(\.0+)?$
+                        type: string
                       timeout:
+                        type: integer
+                    type: object
+                  cache:
+                    properties:
+                      defaultTtlSeconds:
+                        minimum: 1
+                        type: integer
+                      enable:
+                        type: boolean
+                      maxSizeMb:
+                        minimum: 1
                         type: integer
                     type: object
                   canaryTrafficPercent:

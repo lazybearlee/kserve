@@ -69,11 +69,12 @@ var (
 
 // Model agent Constants
 const (
-	AgentContainerName    = "agent"
-	AgentConfigMapKeyName = "agent"
-	AgentEnableFlag       = "--enable-puller"
-	AgentConfigDirArgName = "--config-dir"
-	AgentModelDirArgName  = "--model-dir"
+	AgentContainerName         = "agent"
+	AgentConfigMapKeyName      = "agent"
+	AgentEnableFlag            = "--enable-puller"
+	AgentConfigDirArgName      = "--config-dir"
+	AgentModelDirArgName       = "--model-dir"
+	DefaultAgentPrometheusPort = "9082"
 )
 
 // InferenceLogger Constants
@@ -110,28 +111,38 @@ var (
 
 // InferenceService Internal Annotations
 var (
-	InferenceServiceInternalAnnotationsPrefix        = "internal." + KServeAPIGroupName
-	StorageInitializerSourceUriInternalAnnotationKey = InferenceServiceInternalAnnotationsPrefix + "/storage-initializer-sourceuri"
-	StorageSpecAnnotationKey                         = InferenceServiceInternalAnnotationsPrefix + "/storage-spec"
-	StorageSpecParamAnnotationKey                    = InferenceServiceInternalAnnotationsPrefix + "/storage-spec-param"
-	StorageSpecKeyAnnotationKey                      = InferenceServiceInternalAnnotationsPrefix + "/storage-spec-key"
-	LoggerInternalAnnotationKey                      = InferenceServiceInternalAnnotationsPrefix + "/logger"
-	LoggerSinkUrlInternalAnnotationKey               = InferenceServiceInternalAnnotationsPrefix + "/logger-sink-url"
-	LoggerModeInternalAnnotationKey                  = InferenceServiceInternalAnnotationsPrefix + "/logger-mode"
-	LoggerMetadataHeadersInternalAnnotationKey       = InferenceServiceInternalAnnotationsPrefix + "/logger-metadata-headers"
-	BatcherInternalAnnotationKey                     = InferenceServiceInternalAnnotationsPrefix + "/batcher"
-	BatcherMaxBatchSizeInternalAnnotationKey         = InferenceServiceInternalAnnotationsPrefix + "/batcher-max-batchsize"
-	BatcherMaxLatencyInternalAnnotationKey           = InferenceServiceInternalAnnotationsPrefix + "/batcher-max-latency"
-	AgentShouldInjectAnnotationKey                   = InferenceServiceInternalAnnotationsPrefix + "/agent"
-	AgentModelConfigVolumeNameAnnotationKey          = InferenceServiceInternalAnnotationsPrefix + "/configVolumeName"
-	AgentModelConfigMountPathAnnotationKey           = InferenceServiceInternalAnnotationsPrefix + "/configMountPath"
-	AgentModelDirAnnotationKey                       = InferenceServiceInternalAnnotationsPrefix + "/modelDir"
-	PredictorHostAnnotationKey                       = InferenceServiceInternalAnnotationsPrefix + "/predictor-host"
-	PredictorProtocolAnnotationKey                   = InferenceServiceInternalAnnotationsPrefix + "/predictor-protocol"
-	LocalModelLabel                                  = InferenceServiceInternalAnnotationsPrefix + "/localmodel"
-	LocalModelSourceUriAnnotationKey                 = InferenceServiceInternalAnnotationsPrefix + "/localmodel-sourceuri"
-	LocalModelPVCNameAnnotationKey                   = InferenceServiceInternalAnnotationsPrefix + "/localmodel-pvc-name"
-	PrometheusInternalAnnotationKey                  = InferenceServiceInternalAnnotationsPrefix + "/prometheus"
+	InferenceServiceInternalAnnotationsPrefix           = "internal." + KServeAPIGroupName
+	StorageInitializerSourceUriInternalAnnotationKey    = InferenceServiceInternalAnnotationsPrefix + "/storage-initializer-sourceuri"
+	StorageSpecAnnotationKey                            = InferenceServiceInternalAnnotationsPrefix + "/storage-spec"
+	StorageSpecParamAnnotationKey                       = InferenceServiceInternalAnnotationsPrefix + "/storage-spec-param"
+	StorageSpecKeyAnnotationKey                         = InferenceServiceInternalAnnotationsPrefix + "/storage-spec-key"
+	LoggerInternalAnnotationKey                         = InferenceServiceInternalAnnotationsPrefix + "/logger"
+	LoggerSinkUrlInternalAnnotationKey                  = InferenceServiceInternalAnnotationsPrefix + "/logger-sink-url"
+	LoggerModeInternalAnnotationKey                     = InferenceServiceInternalAnnotationsPrefix + "/logger-mode"
+	LoggerMetadataHeadersInternalAnnotationKey          = InferenceServiceInternalAnnotationsPrefix + "/logger-metadata-headers"
+	BatcherInternalAnnotationKey                        = InferenceServiceInternalAnnotationsPrefix + "/batcher"
+	BatcherMaxBatchSizeInternalAnnotationKey            = InferenceServiceInternalAnnotationsPrefix + "/batcher-max-batchsize"
+	BatcherMaxLatencyInternalAnnotationKey              = InferenceServiceInternalAnnotationsPrefix + "/batcher-max-latency"
+	BatcherEnableAdaptiveInternalAnnotationKey          = InferenceServiceInternalAnnotationsPrefix + "/batcher-enable-adaptive"
+	BatcherMinBatchSizeInternalAnnotationKey            = InferenceServiceInternalAnnotationsPrefix + "/batcher-min-batchsize"
+	BatcherMinLatencyInternalAnnotationKey              = InferenceServiceInternalAnnotationsPrefix + "/batcher-min-latency"
+	BatcherTargetLatencyInternalAnnotationKey           = InferenceServiceInternalAnnotationsPrefix + "/batcher-target-latency"
+	BatcherTargetLatencyPercentileInternalAnnotationKey = InferenceServiceInternalAnnotationsPrefix + "/batcher-target-latency-percentile"
+	BatcherQueueLengthThresholdInternalAnnotationKey    = InferenceServiceInternalAnnotationsPrefix + "/batcher-queue-length-threshold"
+	BatcherStateTransitionCooldownInternalAnnotationKey = InferenceServiceInternalAnnotationsPrefix + "/batcher-state-transition-cooldown"
+	CacheInternalAnnotationKey                          = InferenceServiceInternalAnnotationsPrefix + "/cache"
+	CacheMaxSizeMbInternalAnnotationKey                 = InferenceServiceInternalAnnotationsPrefix + "cache-max-size-mb"
+	CacheDefaultTtlSecondsInternalAnnotationKey         = InferenceServiceInternalAnnotationsPrefix + "/cache-default-ttl-seconds"
+	AgentShouldInjectAnnotationKey                      = InferenceServiceInternalAnnotationsPrefix + "/agent"
+	AgentModelConfigVolumeNameAnnotationKey             = InferenceServiceInternalAnnotationsPrefix + "/configVolumeName"
+	AgentModelConfigMountPathAnnotationKey              = InferenceServiceInternalAnnotationsPrefix + "/configMountPath"
+	AgentModelDirAnnotationKey                          = InferenceServiceInternalAnnotationsPrefix + "/modelDir"
+	PredictorHostAnnotationKey                          = InferenceServiceInternalAnnotationsPrefix + "/predictor-host"
+	PredictorProtocolAnnotationKey                      = InferenceServiceInternalAnnotationsPrefix + "/predictor-protocol"
+	LocalModelLabel                                     = InferenceServiceInternalAnnotationsPrefix + "/localmodel"
+	LocalModelSourceUriAnnotationKey                    = InferenceServiceInternalAnnotationsPrefix + "/localmodel-sourceuri"
+	LocalModelPVCNameAnnotationKey                      = InferenceServiceInternalAnnotationsPrefix + "/localmodel-pvc-name"
+	PrometheusInternalAnnotationKey                     = InferenceServiceInternalAnnotationsPrefix + "/prometheus"
 )
 
 // kserve networking constants
@@ -299,11 +310,13 @@ const (
 
 // InferenceService Endpoint Ports
 const (
-	InferenceServiceDefaultHttpPort     = "8080"
-	InferenceServiceDefaultAgentPortStr = "9081"
-	InferenceServiceDefaultAgentPort    = 9081
-	CommonDefaultHttpPort               = 80
-	AggregateMetricsPortName            = "aggr-metric"
+	InferenceServiceDefaultHttpPort            = "8080"
+	InferenceServiceDefaultAgentPortStr        = "9081"
+	InferenceServiceDefaultAgentPort           = 9081
+	InferenceServiceDefaultAgentMetricsPortStr = "9082"
+	InferenceServiceDefaultAgentMetricsPort    = 9082
+	CommonDefaultHttpPort                      = 80
+	AggregateMetricsPortName                   = "aggr-metric"
 )
 
 // Labels to put on kservice

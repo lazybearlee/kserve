@@ -5,10 +5,12 @@ metadata:
   annotations:
     serving.kserve.io/enable-metric-aggregation: "true"
     serving.kserve.io/enable-prometheus-scraping: "true"
+    networking.knative.dev/visibility: example.com
 spec:
   predictor:
     batcher:
       maxBatchSize: 8
       maxLatency: 300
+      exportMetrics: 10103
     sklearn:
       storageUri: "gs://kfserving-examples/models/sklearn/1.0/model"

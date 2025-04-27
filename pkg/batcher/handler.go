@@ -24,7 +24,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"regexp"
-	"sync"
 	"time"
 
 	"github.com/gofrs/uuid/v5"
@@ -35,10 +34,6 @@ const (
 	SleepTime    = time.Microsecond * 100
 	MaxBatchSize = 32
 	MaxLatency   = 5000
-
-	// Metrics constants
-	MaxWindowSize  = 10
-	RecordInterval = 1000 * time.Millisecond
 )
 
 type Request struct {
@@ -161,7 +156,7 @@ func (handler *BatchHandler) batchPredict() {
 
 func (handler *BatchHandler) batch() {
 	handler.log.Infof("Starting batch loop maxLatency:%d, maxBatchSize:%d",
-		handler.MaxLatency, handler.BatchSize)
+		handler.MaxLatency, handler.MaxBatchSize)
 	for {
 		select {
 		case req := <-handler.channelIn:
@@ -183,7 +178,7 @@ func (handler *BatchHandler) batch() {
 		case <-time.After(SleepTime):
 		}
 		handler.batcherInfo.Now = GetNowTime()
-		if handler.batcherInfo.CurrentInputLen >= handler.BatchSize ||
+		if handler.batcherInfo.CurrentInputLen >= handler.MaxBatchSize ||
 			(handler.batcherInfo.Now.Sub(handler.batcherInfo.Start).Milliseconds() >= int64(handler.MaxLatency) &&
 				handler.batcherInfo.CurrentInputLen > 0) {
 			handler.log.Infof("batch predict with size %d %s", len(handler.batcherInfo.Instances), handler.batcherInfo.Path)
@@ -193,14 +188,13 @@ func (handler *BatchHandler) batch() {
 }
 
 func (handler *BatchHandler) Consume() {
-	if handler.BatchSize <= 0 {
-		handler.BatchSize = MaxBatchSize
+	if handler.MaxBatchSize <= 0 {
+		handler.MaxBatchSize = MaxBatchSize
 	}
 	if handler.MaxLatency <= 0 {
 		handler.MaxLatency = MaxLatency
 	}
 	handler.batcherInfo.InitializeInfo()
-
 	handler.batch()
 }
 
@@ -209,35 +203,20 @@ type BatchHandler struct {
 	log          *zap.SugaredLogger
 	channelIn    chan Input
 	MaxBatchSize int
-	BatchSize    int
 	MaxLatency   int
 	batcherInfo  BatcherInfo
-	InfoRwMutex  sync.RWMutex
-	optimizer    *BatchOptimizer
-	estimator    *ParameterEstimator
-	metrics      *MetricsCollector
 }
 
 func New(maxBatchSize int, maxLatency int, handler http.Handler, logger *zap.SugaredLogger) *BatchHandler {
-	batchHandler := &BatchHandler{
+	batchHandler := BatchHandler{
 		next:         handler,
 		log:          logger,
 		channelIn:    make(chan Input),
-		BatchSize:    1,
 		MaxBatchSize: maxBatchSize,
 		MaxLatency:   maxLatency,
-		metrics:      NewMetricsCollector(100),
 	}
-	// 初始化估计器和优化器
-	batchHandler.estimator = NewParameterEstimator(batchHandler.metrics, 30*time.Second)
-	batchHandler.optimizer = NewBatchOptimizer(batchHandler.estimator, batchHandler, 5*time.Second)
-
-	// 启动协程
 	go batchHandler.Consume()
-	go batchHandler.estimator.Run()
-	go batchHandler.optimizer.Run()
-	go batchHandler.recordLoop()
-	return batchHandler
+	return &batchHandler
 }
 
 func (handler *BatchHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -283,60 +262,5 @@ func (handler *BatchHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
-	}
-}
-
-// setDynamicBatchSize 设置动态批处理大小
-func (handler *BatchHandler) setDynamicBatchSize(size int) {
-	handler.InfoRwMutex.Lock()
-	defer handler.InfoRwMutex.Unlock()
-
-	handler.BatchSize = size
-}
-
-// getQueueLength 获取当前队列长度
-func (handler *BatchHandler) getCurrentQueueLength() float64 {
-	handler.InfoRwMutex.RLock()
-	defer handler.InfoRwMutex.RUnlock()
-
-	return float64(handler.batcherInfo.CurrentInputLen)
-}
-
-func (handler *BatchHandler) recordMetrics() {
-	handler.InfoRwMutex.RLock()
-	defer handler.InfoRwMutex.RUnlock()
-
-	r, err := getArrivalRate()
-	if err != nil {
-		handler.log.Errorf("Failed to get arrival rate: %v", err)
-		return
-	}
-	L0, err := getBaseLatency()
-	if err != nil {
-		handler.log.Errorf("Failed to get base latency: %v", err)
-		return
-	}
-	L, err := getAverageLatency()
-	if err != nil {
-		handler.log.Errorf("Failed to get average latency: %v", err)
-	}
-
-	handler.metrics.AddMetric(BatchMetrics{
-		BatchSize:        handler.BatchSize,
-		QueueLength:      handler.batcherInfo.CurrentInputLen,
-		ProcessingTimeMs: L,
-		BaseLatencyMs:    L0,
-		ArrivalRate:      r,
-		Timestamp:        time.Now(),
-	})
-}
-
-// recordLoop 记录循环
-func (handler *BatchHandler) recordLoop() {
-	for {
-		select {
-		case <-time.After(RecordInterval):
-			handler.recordMetrics()
-		}
 	}
 }

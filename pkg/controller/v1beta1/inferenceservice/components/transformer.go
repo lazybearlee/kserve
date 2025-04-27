@@ -85,6 +85,7 @@ func (p *Transformer) Reconcile(ctx context.Context, isvc *v1beta1.InferenceServ
 	}
 	addLoggerAnnotations(isvc.Spec.Transformer.Logger, annotations)
 	addBatcherAnnotations(isvc.Spec.Transformer.Batcher, annotations)
+	addCacheAnnotations(isvc.Spec.Transformer.Cache, annotations)
 
 	transformerName := constants.TransformerServiceName(isvc.Name)
 	predictorName := constants.PredictorServiceName(isvc.Name)

@@ -1,0 +1,73 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"serving.kserve.io/v1beta1","kind":"InferenceService","metadata":{"annotations":{"networking.knative.dev/visibility":"example.com","serving.kserve.io/enable-metric-aggregation":"true","serving.kserve.io/enable-prometheus-scraping":"true"},"name":"sklearn-iris","namespace":"kserve-test"},"spec":{"predictor":{"batcher":{"exportMetrics":10103,"maxBatchSize":8,"maxLatency":300},"sklearn":{"storageUri":"gs://kfserving-examples/models/sklearn/1.0/model"}}}}
+    networking.knative.dev/visibility: example.com
+    serving.kserve.io/enable-metric-aggregation: "true"
+    serving.kserve.io/enable-prometheus-scraping: "true"
+  creationTimestamp: "2025-03-31T09:56:12Z"
+  finalizers:
+  - inferenceservice.finalizers
+  generation: 1
+  name: sklearn-iris
+  namespace: kserve-test
+  resourceVersion: "361840"
+  uid: 530b817a-343a-41e5-9f5c-c7a79a05b0d0
+spec:
+  predictor:
+    batcher:
+      exportMetrics: 10103
+      maxBatchSize: 8
+      maxLatency: 300
+    model:
+      modelFormat:
+        name: sklearn
+      name: ""
+      resources: {}
+      storageUri: gs://kfserving-examples/models/sklearn/1.0/model
+status:
+  components:
+    predictor:
+      latestCreatedRevision: sklearn-iris-predictor-00001
+  conditions:
+  - lastTransitionTime: "2025-03-31T09:56:12Z"
+    reason: PredictorConfigurationReady not ready
+    severity: Info
+    status: Unknown
+    type: LatestDeploymentReady
+  - lastTransitionTime: "2025-03-31T09:56:12Z"
+    severity: Info
+    status: Unknown
+    type: PredictorConfigurationReady
+  - lastTransitionTime: "2025-03-31T09:56:12Z"
+    message: Configuration "sklearn-iris-predictor" is waiting for a Revision to become
+      ready.
+    reason: RevisionMissing
+    status: Unknown
+    type: PredictorReady
+  - lastTransitionTime: "2025-03-31T09:56:12Z"
+    message: Configuration "sklearn-iris-predictor" is waiting for a Revision to become
+      ready.
+    reason: RevisionMissing
+    severity: Info
+    status: Unknown
+    type: PredictorRouteReady
+  - lastTransitionTime: "2025-03-31T09:56:12Z"
+    message: Configuration "sklearn-iris-predictor" is waiting for a Revision to become
+      ready.
+    reason: RevisionMissing
+    status: Unknown
+    type: Ready
+  - lastTransitionTime: "2025-03-31T09:56:12Z"
+    reason: PredictorRouteReady not ready
+    severity: Info
+    status: Unknown
+    type: RoutesReady
+  modelStatus:
+    states:
+      activeModelState: ""
+      targetModelState: Pending
+    transitionStatus: InProgress
+  observedGeneration: 1

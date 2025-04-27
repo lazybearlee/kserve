@@ -34,7 +34,9 @@ import (
 )
 
 const (
+	// Logger Args (Existing + new consts if needed)
 	LoggerConfigMapKeyName         = "logger"
+	LoggerEnableFlag               = "--enable-logger" // New flag needed
 	LoggerArgumentLogUrl           = "--log-url"
 	LoggerArgumentSourceUri        = "--source-uri"
 	LoggerArgumentMode             = "--log-mode"
@@ -45,6 +47,32 @@ const (
 	LoggerArgumentCaCertFile       = "--logger-ca-cert-file"
 	LoggerArgumentTlsSkipVerify    = "--logger-tls-skip-verify"
 	LoggerArgumentMetadataHeaders  = "--metadata-headers"
+
+	// Puller Args (Existing)
+	AgentEnableFlag       = "--enable-puller"
+	AgentConfigDirArgName = "--config-dir"
+	AgentModelDirArgName  = "--model-dir"
+
+	// Batcher Args (Existing + New)
+	BatcherEnableFlag                      = "--enable-batcher" // New flag needed
+	BatcherArgumentMaxBatchSize            = "--max-batchsize"
+	BatcherArgumentMaxLatency              = "--max-latency"
+	BatcherArgumentEnableAdaptive          = "--enable-adaptive-batcher" // New flag
+	BatcherArgumentMinBatchSize            = "--min-batchsize"           // New flag
+	BatcherArgumentMinLatency              = "--min-latency"             // New flag
+	BatcherArgumentTargetLatency           = "--target-latency"
+	BatcherArgumentTargetLatencyPercentile = "--target-latency-percentile" // New flag
+	BatcherArgumentQueueLengthThreshold    = "--queue-length-threshold"    // New flag
+	BatcherArgumentStateTransitionCooldown = "--state-transition-cooldown" // New flag
+	// BatcherArgumentExportMetricsPort Removed? Or handle differently? Let's remove for now as agent exposes /metrics
+
+	// Cache Args (New)
+	CacheEnableFlag         = "--enable-cache"              // New flag needed
+	CacheArgumentMaxSizeMb  = "--cache-max-size-mb"         // New flag
+	CacheArgumentDefaultTtl = "--cache-default-ttl-seconds" // New flag
+
+	// Other Agent Args
+	ComponentPortArg = "--component-port"
 )
 
 type AgentConfig struct {
@@ -132,9 +160,11 @@ func (ag *AgentInjector) InjectAgent(pod *corev1.Pod) error {
 	_, injectLogger := pod.ObjectMeta.Annotations[constants.LoggerInternalAnnotationKey]
 	_, injectPuller := pod.ObjectMeta.Annotations[constants.AgentShouldInjectAnnotationKey]
 	_, injectBatcher := pod.ObjectMeta.Annotations[constants.BatcherInternalAnnotationKey]
+	_, injectCache := pod.ObjectMeta.Annotations[constants.CacheInternalAnnotationKey]
 
-	if !injectLogger && !injectPuller && !injectBatcher {
-		return nil
+	if !injectLogger && !injectPuller && !injectBatcher && !injectCache {
+		klog.Infof("No KServe agent features enabled for pod %s/%s, skipping injection.", pod.Namespace, pod.Name)
+		return nil // Nothing to inject
 	}
 
 	// Don't inject if Container already injected
@@ -143,6 +173,8 @@ func (ag *AgentInjector) InjectAgent(pod *corev1.Pod) error {
 			return nil
 		}
 	}
+
+	klog.Infof("Injecting KServe agent into pod %s/%s", pod.Namespace, pod.Name)
 
 	var args []string
 	if injectPuller {
@@ -160,22 +192,59 @@ func (ag *AgentInjector) InjectAgent(pod *corev1.Pod) error {
 		}
 	}
 	// Only inject if the batcher required annotations are set
+	metricsPort := constants.InferenceServiceDefaultAgentMetricsPort
 	if injectBatcher {
-		args = append(args, BatcherEnableFlag)
-		maxBatchSize, ok := pod.ObjectMeta.Annotations[constants.BatcherMaxBatchSizeInternalAnnotationKey]
-		if ok {
-			args = append(args, BatcherArgumentMaxBatchSize)
-			args = append(args, maxBatchSize)
+		klog.Infof("Injecting Batcher args for pod %s/%s", pod.Namespace, pod.Name)
+		args = append(args, BatcherEnableFlag) // Set --enable-batcher=true
+
+		// Common/Static Args
+		if maxBS, ok := pod.ObjectMeta.Annotations[constants.BatcherMaxBatchSizeInternalAnnotationKey]; ok {
+			args = append(args, BatcherArgumentMaxBatchSize, maxBS)
+		}
+		if maxLat, ok := pod.ObjectMeta.Annotations[constants.BatcherMaxLatencyInternalAnnotationKey]; ok {
+			args = append(args, BatcherArgumentMaxLatency, maxLat)
 		}
 
-		maxLatency, ok := pod.ObjectMeta.Annotations[constants.BatcherMaxLatencyInternalAnnotationKey]
-		if ok {
-			args = append(args, BatcherArgumentMaxLatency)
-			args = append(args, maxLatency)
+		// Adaptive Args (only add flags if corresponding annotation exists)
+		if enableAdapt, ok := pod.ObjectMeta.Annotations[constants.BatcherEnableAdaptiveInternalAnnotationKey]; ok {
+			args = append(args, BatcherArgumentEnableAdaptive, enableAdapt)
+		}
+		if minBS, ok := pod.ObjectMeta.Annotations[constants.BatcherMinBatchSizeInternalAnnotationKey]; ok {
+			args = append(args, BatcherArgumentMinBatchSize, minBS)
+		}
+		if minLat, ok := pod.ObjectMeta.Annotations[constants.BatcherMinLatencyInternalAnnotationKey]; ok {
+			args = append(args, BatcherArgumentMinLatency, minLat)
+		}
+		if targetLat, ok := pod.ObjectMeta.Annotations[constants.BatcherTargetLatencyInternalAnnotationKey]; ok {
+			args = append(args, BatcherArgumentTargetLatency, targetLat)
+		}
+		if targetPerc, ok := pod.ObjectMeta.Annotations[constants.BatcherTargetLatencyPercentileInternalAnnotationKey]; ok {
+			args = append(args, BatcherArgumentTargetLatencyPercentile, targetPerc)
+		}
+		if qlThresh, ok := pod.ObjectMeta.Annotations[constants.BatcherQueueLengthThresholdInternalAnnotationKey]; ok {
+			args = append(args, BatcherArgumentQueueLengthThreshold, qlThresh)
+		}
+		if cooldown, ok := pod.ObjectMeta.Annotations[constants.BatcherStateTransitionCooldownInternalAnnotationKey]; ok {
+			args = append(args, BatcherArgumentStateTransitionCooldown, cooldown)
+		}
+
+		// Note: We removed BatcherArgumentExportMetricsPort as the agent should expose /metrics by default on its metrics port
+	}
+
+	if injectCache {
+		klog.Infof("Injecting Cache args for pod %s/%s", pod.Namespace, pod.Name)
+		args = append(args, CacheEnableFlag) // Set --enable-cache=true
+		if maxSize, ok := pod.ObjectMeta.Annotations[constants.CacheMaxSizeMbInternalAnnotationKey]; ok {
+			args = append(args, CacheArgumentMaxSizeMb, maxSize)
+		}
+		if ttl, ok := pod.ObjectMeta.Annotations[constants.CacheDefaultTtlSecondsInternalAnnotationKey]; ok {
+			args = append(args, CacheArgumentDefaultTtl, ttl)
 		}
 	}
+
 	// Only inject if the logger required annotations are set
 	if injectLogger {
+		klog.Infof("Injecting Logger args for pod %s/%s", pod.Namespace, pod.Name)
 		logUrl, ok := pod.ObjectMeta.Annotations[constants.LoggerSinkUrlInternalAnnotationKey]
 		if !ok {
 			logUrl = ag.loggerConfig.DefaultUrl
@@ -298,6 +367,11 @@ func (ag *AgentInjector) InjectAgent(pod *corev1.Pod) error {
 			{
 				Name:          "agent-port",
 				ContainerPort: constants.InferenceServiceDefaultAgentPort,
+				Protocol:      "TCP",
+			},
+			{
+				Name:          "metrics-port",
+				ContainerPort: int32(metricsPort),
 				Protocol:      "TCP",
 			},
 		},

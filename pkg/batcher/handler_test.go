@@ -169,6 +169,6 @@ func TestBatcherDefaults(t *testing.T) {
 	// var responseBytes []byte
 	<-responseChan
 	wg.Wait()
-	g.Expect(batchHandler.BatchSize).To(gomega.Equal(MaxBatchSize))
+	g.Expect(batchHandler.MaxBatchSize).To(gomega.Equal(MaxBatchSize))
 	g.Expect(batchHandler.MaxLatency).To(gomega.Equal(MaxLatency))
 }
