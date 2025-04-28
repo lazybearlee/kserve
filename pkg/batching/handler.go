@@ -237,7 +237,6 @@ func (h *BatchHandler) distributeSuccessResponse(inputMap map[*context.Context]I
 	h.log.Debugw("Distributing success responses", "batchId", batchID, "numRequests", len(inputMap))
 
 	for ctxPtr, info := range inputMap { // Use ctxPtr as key variable name
-		// ... (prediction slicing logic remains the same) ...
 		predictions := make([]interface{}, len(info.Index))
 		for i, batchIndex := range info.Index {
 			if batchIndex >= 0 && batchIndex < len(allPredictions) {

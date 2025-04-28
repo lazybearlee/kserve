@@ -1,0 +1,124 @@
+╰─(base) ⠠⠵ ./loadtester \
+  -url="http://localhost:8080/v1/models/sklearn-iris-baseline:predict" \
+  -host="sklearn-iris-baseline.kserve-test.example.com" \
+  -qps=200 \
+  -duration=1m \
+  -instances-per-req=1 \
+  -concurrency=50 \
+  -payload-pool-size=500 \
+  -output-csv=results_baseline_200qps.csv
+Generated payload pool: Size=500, InstancesPerPayload=1, HotSetSize=100
+Running test for duration: 1m0s
+Starting constant load test: 200.00 QPS (Interval: 5ms)
+Test duration finished.
+Signalling traffic generator and workers to stop...
+Constant QPS generator stopping.
+Result collector finished.
+
+--- Test Results ---
+Duration:             1m0.001s
+Total HTTP Requests:  12000
+HTTP Req Throughput:  200.00 req/s
+Instance Throughput:  199.98 inst/s
+Success Rate (HTTP):  99.99%
+Error Count (HTTP):   1
+Total Instances Sent: 12000
+Total Instances OK:   11999
+Status Codes:
+  200: 11999
+Latency (HTTP Requests):
+  Average: 2.45 ms
+  Min:     1.00 ms
+  p50:     2.00 ms
+  p90:     2.00 ms
+  p95:     2.00 ms
+  p99:     3.00 ms
+  Max:     134.00 ms
+Raw results saved to results_baseline_200qps.csv
+Test finished.
+
+
+---
+
+
+./loadtester \
+  -url="http://localhost:8080/v1/models/sklearn-iris-static-batch:predict" \
+  -host="sklearn-iris-static-batch.kserve-test.example.com" \
+  -qps=200 \
+  -duration=1m \
+  -instances-per-req=1 \
+  -concurrency=50 \
+  -payload-pool-size=500 \
+  -output-csv=results_static_b8_l50_200qps.csv
+Generated payload pool: Size=500, InstancesPerPayload=1, HotSetSize=100
+Running test for duration: 1m0s
+Starting constant load test: 200.00 QPS (Interval: 5ms)
+Test duration finished.
+Signalling traffic generator and workers to stop...
+Constant QPS generator stopping.
+Result collector finished.
+
+--- Test Results ---
+Duration:             1m0.001s
+Total HTTP Requests:  12000
+HTTP Req Throughput:  200.00 req/s
+Instance Throughput:  199.88 inst/s
+Success Rate (HTTP):  99.94%
+Error Count (HTTP):   7
+Total Instances Sent: 12000
+Total Instances OK:   11993
+Status Codes:
+  200: 11993
+Latency (HTTP Requests):
+  Average: 20.69 ms
+  Min:     2.00 ms
+  p50:     22.00 ms
+  p90:     37.00 ms
+  p95:     38.00 ms
+  p99:     38.00 ms
+  Max:     53.00 ms
+Raw results saved to results_static_b8_l50_200qps.csv
+Test finished.
+
+
+---
+
+./loadtester \
+  -url="http://localhost:8080/v1/models/sklearn-iris-adaptive-batch:predict" \
+  -host="sklearn-iris-adaptive-batch.kserve-test.example.com" \
+  -qps=200 \
+  -duration=1m \
+  -instances-per-req=1 \
+  -concurrency=50 \
+  -payload-pool-size=500 \
+  -output-csv=results_adaptive_t20_200qps.csv # Name reflects config
+
+Generated payload pool: Size=500, InstancesPerPayload=1, HotSetSize=100
+Running test for duration: 1m0s
+Starting constant load test: 200.00 QPS (Interval: 5ms)
+Test duration finished.
+Signalling traffic generator and workers to stop...
+Constant QPS generator stopping.
+Result collector finished.
+
+--- Test Results ---
+Duration:             1m0s
+Total HTTP Requests:  11999
+HTTP Req Throughput:  199.98 req/s
+Instance Throughput:  199.98 inst/s
+Success Rate (HTTP):  100.00%
+Error Count (HTTP):   0
+Total Instances Sent: 11999
+Total Instances OK:   11999
+Status Codes:
+  200: 11999
+Latency (HTTP Requests):
+  Average: 16.35 ms
+  Min:     1.00 ms
+  p50:     3.00 ms
+  p90:     48.00 ms
+  p95:     64.00 ms
+  p99:     87.00 ms
+  Max:     232.00 ms
+Raw results saved to results_adaptive_t20_200qps.csv
+Test finished.

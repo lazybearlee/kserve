@@ -1,0 +1,23 @@
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "sklearn-iris-adaptive-batch" # Unique name
+spec:
+  predictor:
+    # containerConcurrency: 8 # Optional
+    sklearn:
+      storageUri: "gs://kfserving-examples/models/sklearn/1.0/model"
+    batcher:
+      # --- Adaptive Batching Config ---
+      enableAdaptive: true      # Explicitly enable adaptive mode
+      targetLatency: 20         # REQUIRED: Target latency goal in ms (e.g., 20ms P95)
+      # --- Optional Bounds / Initial Values ---
+      maxBatchSize: 32          # Upper bound & initial value for adaptive batch size
+      maxLatency: 100           # Upper bound & initial value for adaptive max latency (ms)
+      minBatchSize: 1           # Lower bound for adaptive batch size
+      minLatency: 5             # Lower bound for adaptive max latency (ms)
+      # --- Optional Tuning Parameters (Defaults usually taken from agent flags) ---
+      # targetLatencyPercentile: 0.95
+      # queueLengthThreshold: 0.7
+      # stateTransitionCooldown: 5000 # ms
+    # --- NO Cache section ---

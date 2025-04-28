@@ -1,0 +1,21 @@
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "sklearn-iris-cache" # Unique name
+spec:
+  predictor:
+    # containerConcurrency: 8 # Optional
+    sklearn:
+      storageUri: "gs://kfserving-examples/models/sklearn/1.0/model"
+    cache:
+      # --- Cache Config ---
+      enable: true
+      maxSizeMb: 100         # Example: 100 MiB cache size
+      defaultTtlSeconds: 300 # Example: 5 minute default TTL
+    # --- NO Batcher section (for isolated cache test) ---
+    # --- OR Add batcher section to test Cache + Batching ---
+    # batcher:
+    #   enableAdaptive: true
+    #   targetLatency: 20
+    #   maxBatchSize: 32
+    #   maxLatency: 100

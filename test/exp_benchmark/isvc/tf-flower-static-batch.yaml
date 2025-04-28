@@ -1,0 +1,15 @@
+apiVersion: "serving.kserve.io/v1beta1"
+kind: "InferenceService"
+metadata:
+  name: "sklearn-iris-static-batch" # Unique name
+spec:
+  predictor:
+    # containerConcurrency: 8 # Optional
+    sklearn:
+      storageUri: "gs://kfserving-examples/models/sklearn/1.0/model"
+    batcher:
+      # --- Static Batching Config ---
+      # EnableAdaptive: false # Or simply omit this line for static
+      maxBatchSize: 8       # Example: Set desired static batch size
+      maxLatency: 50        # Example: Set desired static max latency (ms)
+    # --- NO Cache section ---

@@ -33,5 +33,4 @@ spec:
             defaultMode: 420
             name: vegeta-cfg
           name: vegeta-cfg
----
 

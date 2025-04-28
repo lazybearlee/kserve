@@ -11,7 +11,6 @@ import (
 )
 
 // --- Constants ---
-// (Constants remain the same as before)
 const (
 	// Default configuration values
 	DefaultInitialMaxBatchSize      = 32
@@ -67,7 +66,6 @@ func (s BatcherState) String() string {
 }
 
 // --- Configuration ---
-// (AdaptiveBatcherConfig struct remains the same)
 type AdaptiveBatcherConfig struct {
 	// Basic Parameters
 	InitialMaxBatchSize int           `json:"initialMaxBatchSize"`
@@ -104,7 +102,6 @@ type AdaptiveBatcherConfig struct {
 }
 
 // --- Ring Buffer Helper ---
-// (FloatRingBuffer remains the same)
 type FloatRingBuffer struct {
 	buffer []float64
 	size   int
@@ -180,7 +177,6 @@ type AdaptiveBatcher struct {
 // NewAdaptiveBatcher creates and initializes a new AdaptiveBatcher.
 func NewAdaptiveBatcher(config AdaptiveBatcherConfig, logger *zap.SugaredLogger) *AdaptiveBatcher {
 	// Apply defaults
-	// (Defaults logic remains the same)
 	if config.InitialMaxBatchSize <= 0 {
 		config.InitialMaxBatchSize = DefaultInitialMaxBatchSize
 	}
@@ -266,7 +262,6 @@ func NewAdaptiveBatcher(config AdaptiveBatcherConfig, logger *zap.SugaredLogger)
 }
 
 // createPrometheusMetrics initializes the Prometheus metric vectors.
-// (Remains the same)
 func (ab *AdaptiveBatcher) createPrometheusMetrics() {
 	ns := ab.config.PrometheusNamespace
 	sub := ab.config.PrometheusSubsystem
@@ -285,7 +280,6 @@ func (ab *AdaptiveBatcher) createPrometheusMetrics() {
 }
 
 // GetMetrics returns all Prometheus collectors associated with this batcher.
-// (Remains the same)
 func (ab *AdaptiveBatcher) GetMetrics() []prometheus.Collector {
 	return []prometheus.Collector{
 		ab.promMaxBatchSize, ab.promMaxLatency, ab.promCurrentState,
@@ -314,7 +308,6 @@ func (ab *AdaptiveBatcher) updatePrometheusGauges() {
 }
 
 // GetBatchingParams returns the current dynamically adjusted batch size and latency.
-// (Remains the same)
 func (ab *AdaptiveBatcher) GetBatchingParams() (int, time.Duration) {
 	ab.mu.RLock()
 	defer ab.mu.RUnlock()
@@ -403,7 +396,6 @@ func (ab *AdaptiveBatcher) adjustParams() {
 	avgQueueLen := ab.queueLengthBuffer.Average() // Read average queue length
 
 	// Define state thresholds based on PXX latency vs target
-	// (Thresholds remain the same)
 	dangerThreshold := targetLatencyNs
 	warningThreshold := targetLatencyNs * 0.9 // Enter warning if PXX > 90% of target
 	exploreThreshold := targetLatencyNs * 0.7 // Enter explore if PXX > 70% of target
@@ -413,7 +405,6 @@ func (ab *AdaptiveBatcher) adjustParams() {
 	newState := previousState
 
 	// Determine new state based on PXX latency
-	// (State transition logic remains the same)
 	if pXXLatencyNs > dangerThreshold {
 		newState = StateDanger
 	} else if pXXLatencyNs > warningThreshold {
@@ -442,7 +433,6 @@ func (ab *AdaptiveBatcher) adjustParams() {
 	}
 
 	// --- Apply AIMD adjustments based on the *new* state ---
-	// (AIMD logic remains the same)
 	prevBatchSize := ab.currentMaxBatchSize
 	prevLatency := ab.currentMaxLatency
 
@@ -489,7 +479,6 @@ func (ab *AdaptiveBatcher) adjustParams() {
 }
 
 // --- Utility Functions ---
-// (minInt, maxInt, minDuration, maxDuration remain the same)
 func minInt(a, b int) int {
 	if a < b {
 		return a

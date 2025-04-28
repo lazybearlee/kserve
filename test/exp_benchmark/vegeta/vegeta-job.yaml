@@ -1,0 +1,53 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  # --- CHANGE generateName for each test run ---
+  generateName: iris-benchmark-adaptive-500qps-
+spec:
+  backoffLimit: 1 # Usually don't need retries for benchmark jobs
+  parallelism: 1
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false" # Avoid Istio overhead for pure load test
+    spec:
+      # Optional: Add node affinity/anti-affinity if needed
+      # affinity:
+      #   podAntiAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #     - labelSelector:
+      #         matchExpressions:
+      #         - key: serving.kserve.io/inferenceservice
+      #           operator: In
+      #           values:
+      #           - sklearn-iris-adaptive-batch # Match the target ISVC name
+      #       topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: vegeta
+          image: peterevans/vegeta:latest # Or your preferred Vegeta image
+          imagePullPolicy: IfNotPresent
+          # --- CHANGE Command Args for each test run ---
+          command: ["sh", "-c"]
+          args:
+            - > # Use > for multi-line command readability
+              vegeta attack -cpus=2 -duration=5m -rate=500/1s \
+              -targets=/var/vegeta/cfg-adaptive \
+              -output=result.bin && \
+              cat result.bin | vegeta report && \
+              cat result.bin | vegeta report -type='hist[0,1ms,2ms,3ms,4ms,5ms,7ms,10ms,15ms,20ms,30ms,50ms,100ms,200ms,500ms,1s]' && \
+              echo "Benchmark Complete"
+          resources:
+            requests:
+              cpu: "2"    # Adjust based on desired load generation capacity
+              memory: 1Gi
+            limits:
+              cpu: "2"
+              memory: 1Gi
+          volumeMounts:
+            - name: vegeta-cfg-vol
+              mountPath: /var/vegeta
+      restartPolicy: Never
+      volumes:
+        - name: vegeta-cfg-vol
+          configMap:
+            name: vegeta-cfg-iris # Match the ConfigMap name
